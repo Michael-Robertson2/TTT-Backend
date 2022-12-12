@@ -14,6 +14,8 @@
   - "JUnit is a simple framework to write repeatable tests."
 - [Mockito](https://site.mockito.org/)
   - "Tasty mocking framework for unit tests in Java"
+- [D&D 5e API](http://www.dnd5eapi.co/)
+  - "Just a simple api for things within the Official 5th Edition SRD and easily accessible through a modern RESTful API."
 
 # Workflow
 
