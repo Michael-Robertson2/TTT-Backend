@@ -21,5 +21,8 @@
 1. Shipping(PENDING, SHIPPED, DELIVERED)
 1. Manage items
 
+##Schema
+[Schema](https://github.com/221114-Java-React/TTT-Frontend/blob/main/erd.png)
+
 [Backend Readme](./backend/README.md)
 
