@@ -1,9 +1,0 @@
-{
-  "short_name": "Ecommerce P2",
-  "name": "Revature Project 2 - Ecommerce Frontend",
-  "icons": [],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}
