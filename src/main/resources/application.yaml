@@ -1,0 +1,20 @@
+# Where the application is hosted on.
+server:
+  port: 8080
+  servlet:
+    context-path: /ecommerce
+
+spring:
+  application:
+    name: ecommerce
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.cjbyutxmphgu.us-west-1.rds.amazonaws.com:5432/postgres?currentSchema=public
+    username: postgres
+    password: revature
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
+    hibernate:
+      # hibernate will drop and create your tables whenever you start your application.
+      ddl-auto: create-drop
