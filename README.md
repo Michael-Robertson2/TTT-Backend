@@ -4,22 +4,20 @@
 
 ## Any User-
 
-1. Authentication: User can signup/login/logout
+1. Any user can register a new account and log in to a valid account.
+1. Any user can look view the site's inventory. They can filter items based on price, name, and type.
 
-1. Items for sale: User(Authenticated or non) can look at items for sale and search by name, filter by price.
+## Authenticated Users-
 
-## Customer Users-
-
-1. Shopping Cart: User(Authenticated) can add items to shopping cart and the app remembers it next time you login. User can view all the items in their shopping cart.  User can delete items in the shopping cart.
-1. Checkout: User(Authenticated) can fill in form and submit billing info.  After submitting billing info, items in the shopping cart will move to a different "state".
-1. Manage Information- Saved Address, Payment
-1. View Purchase History
+1. Authenticated users can add items to shopping cart. Their cart is stored in a database, so if the user reloads the page, this information persists. Users can also manage their cart by editing the quantity of items, and delete items from the cart.
+1. Authenticated can attempt to checkout their cart. This checkout attempt will prompt the user for their credit card information. If the information is valid, the checkout attempt is successful and the items will have been purchased.
+1. Authenticated users can view their past transactions. These transactions can be filtered by total amount spent and the shipping status.
+1. Authenticated users will be able to manage their user information. This includes their address and their password.
 
  ## Admin-
 
-1. Payment(APPROVED,DENIED)
-1. Shipping(PENDING, SHIPPED, DELIVERED)
-1. Manage items
+1. Admins manage the shipping status.
+1. Admins can manage site inventory. This includes adding new items and update items (in case there is a sale).
 
 ## Schema
 ![Schema](https://github.com/221114-Java-React/TTT-Frontend/blob/main/erd.png)
