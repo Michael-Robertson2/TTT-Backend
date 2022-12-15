@@ -49,7 +49,7 @@ public class Item {
     private List<Cart> cart;
 
     @OneToMany(
-            mappedBy = "itemOrdered",
+            mappedBy = "item",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )

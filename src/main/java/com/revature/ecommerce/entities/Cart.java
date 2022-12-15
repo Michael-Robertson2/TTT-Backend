@@ -3,6 +3,7 @@ package com.revature.ecommerce.entities;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.revature.ecommerce.entities.keys.CartKey;
 
 
 // This is a junction table for users and items
@@ -10,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "carts")
 public class Cart {
+
+    @EmbeddedId
+    CartKey id;
     
     @Column(name = "amount", nullable = false)
     private Integer amount;
@@ -36,13 +40,41 @@ public class Cart {
         super();
     }
 
+    
+    
 
+    
     public Cart(Integer amount, Item item, User user) {
         this.amount = amount;
         this.item = item;
         this.user = user;
     }
 
+
+
+
+
+    public Cart(CartKey id, Integer amount, Item item, User user) {
+        this.id = id;
+        this.amount = amount;
+        this.item = item;
+        this.user = user;
+    }
+
+
+    
+    public CartKey getId() {
+        return id;
+    }
+
+
+
+
+    public void setId(CartKey id) {
+        this.id = id;
+    }
+
+    
 
     public Integer getAmount() {
         return amount;
@@ -74,15 +106,20 @@ public class Cart {
     }
 
 
+
+
+
     @Override
     public String toString() {
-        return "Cart [amount=" + amount + ", item=" + item + ", user=" + user + "]";
+        return "Cart [id=" + id + ", amount=" + amount + ", item=" + item + ", user=" + user + "]";
     }
 
 
     
 
 
-    
-    
+
+
+
 }
+

@@ -33,8 +33,21 @@ public class ItemService {
     }
 
 
+    public List<Item> getAllItemsByPriceAsc() {
+        return (List<Item>) itemRepository.findAllByPriceAsc();
+    }
+
+    public List<Item> getAllItemsByPriceDesc() {
+        return (List<Item>) itemRepository.findAllByPriceDesc();
+    }
+
+
     public List<Item> getAllByType(ItemType type) {
         return itemRepository.findAllByType(type);
+    }
+
+    public List<Item> getAllByName(String name) {
+        return itemRepository.findAllByName(name);
     }
 
 

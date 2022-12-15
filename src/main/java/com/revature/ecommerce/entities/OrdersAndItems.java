@@ -3,6 +3,7 @@ package com.revature.ecommerce.entities;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.revature.ecommerce.entities.keys.OrdersAndItemsKey;
 
 
 // This is a junction table for items and orders
@@ -10,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "OrdersAndItems")
 public class OrdersAndItems {
+
+    @EmbeddedId
+    OrdersAndItemsKey id;
     
     @Column(name = "amount", nullable = false)
     private Integer amount;
@@ -41,12 +45,41 @@ public class OrdersAndItems {
     }
 
 
+    
+
+
     public OrdersAndItems(Integer amount, Double purchasePrice, Item item, Order order) {
         this.amount = amount;
         this.purchasePrice = purchasePrice;
         this.item = item;
         this.order = order;
     }
+
+
+
+
+
+    public OrdersAndItems(OrdersAndItemsKey id, Integer amount, Double purchasePrice, Item item, Order order) {
+        this.id = id;
+        this.amount = amount;
+        this.purchasePrice = purchasePrice;
+        this.item = item;
+        this.order = order;
+    }
+
+    
+    public OrdersAndItemsKey getId() {
+        return id;
+    }
+
+
+
+
+
+    public void setId(OrdersAndItemsKey id) {
+        this.id = id;
+    }
+
 
 
     public Integer getAmount() {
@@ -89,11 +122,15 @@ public class OrdersAndItems {
     }
 
 
+
+
+
     @Override
     public String toString() {
-        return "OrdersAndItems [amount=" + amount + ", purchasePrice=" + purchasePrice + ", item=" + item + ", order="
-                + order + "]";
+        return "OrdersAndItems [id=" + id + ", amount=" + amount + ", purchasePrice=" + purchasePrice + ", item=" + item
+                + ", order=" + order + "]";
     }
+
 
 
     
