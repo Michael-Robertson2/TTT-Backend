@@ -1,6 +1,7 @@
-package com.revature.ecommerce.entities;
+package com.revature.ecommerce.models;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity

@@ -1,7 +1,7 @@
 package com.revature.ecommerce.services;
 
 import com.revature.ecommerce.dtos.requests.NewUserRequest;
-import com.revature.ecommerce.entities.User;
+import com.revature.ecommerce.models.User;
 import com.revature.ecommerce.repositories.UserRepository;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import org.springframework.stereotype.Service;

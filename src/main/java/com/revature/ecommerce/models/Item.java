@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
+@Table(name = "items")
 public class Item {
     @Id
     private String id;
@@ -33,41 +34,37 @@ public class Item {
     @Column(name = "img_url")
     private String img_url;
 
-
-
-    @ManyToOne
-    @JoinColumn(
-            name = "item_type_id",
-            nullable = false
-    )
-    @JsonBackReference
+    @Column(name="role", nullable = false)
+    @Enumerated
     private ItemType itemType;
 
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "order_items",
-			joinColumns = @JoinColumn(name = "item_id"),
-			inverseJoinColumns = @JoinColumn(name = "order_id")
-	)
-    private List<Order> orders;
+    @OneToMany(
+            mappedBy = "cartItem",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<Cart> cart;
 
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "cart",
-			joinColumns = @JoinColumn(name = "item_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id")
-	)
-    private List<User> users;
+    @OneToMany(
+            mappedBy = "itemOrdered",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<OrdersAndItems> itemOrders;
 
 
 
     public Item() {
         super();
     }
+
+    
 
 
 
@@ -81,6 +78,24 @@ public class Item {
         this.current_price = current_price;
         this.img_url = img_url;
         this.itemType = itemType;
+    }
+
+
+
+
+
+    public Item(String id, String name, String description, Integer stock, Double msrp, Double current_price,
+            String img_url, ItemType itemType, List<Cart> cart, List<OrdersAndItems> itemOrders) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.stock = stock;
+        this.msrp = msrp;
+        this.current_price = current_price;
+        this.img_url = img_url;
+        this.itemType = itemType;
+        this.cart = cart;
+        this.itemOrders = itemOrders;
     }
 
 
@@ -180,23 +195,27 @@ public class Item {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
+
+    public List<Cart> getCart() {
+        return cart;
     }
 
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
     }
 
 
-    public List<User> getUsers() {
-        return users;
+
+    public List<OrdersAndItems> getItemOrders() {
+        return itemOrders;
     }
 
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+
+    public void setItemOrders(List<OrdersAndItems> itemOrders) {
+        this.itemOrders = itemOrders;
     }
 
 
@@ -204,8 +223,12 @@ public class Item {
     @Override
     public String toString() {
         return "Item [id=" + id + ", name=" + name + ", description=" + description + ", stock=" + stock + ", msrp="
-                + msrp + ", current_price=" + current_price + ", img_url=" + img_url + ", itemType=" + itemType + "]";
+                + msrp + ", current_price=" + current_price + ", img_url=" + img_url + ", itemType=" + itemType
+                + ", cart=" + cart + ", itemOrders=" + itemOrders + "]";
     }
+
+
+    
 
 
     

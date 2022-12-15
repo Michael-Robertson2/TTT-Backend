@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     private String id;
@@ -18,13 +20,19 @@ public class Order {
     @Column(name = "delivery_date")
     private Timestamp deliveryDate;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "status_id",
-            nullable = false
-    )
-    @JsonBackReference
+    @Column(name="status", nullable = false)
+    @Enumerated
     private Status status;
+
+
+    @OneToMany(
+            mappedBy = "cartOrder",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<Cart> cart;
+
 
     @ManyToOne
     @JoinColumn(
@@ -33,7 +41,6 @@ public class Order {
     )
     @JsonBackReference
     private User user;
-
 
     @ManyToOne
     @JoinColumn(
@@ -44,13 +51,7 @@ public class Order {
     private Address address;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "order_items",
-			joinColumns = @JoinColumn(name = "order_id"),
-			inverseJoinColumns = @JoinColumn(name = "item_id")
-	)
-    private List<Item> items;
+    
 
 
     public Order() {
@@ -58,16 +59,35 @@ public class Order {
     }
 
 
-    public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status, User user, Address address,
-            List<Item> items) {
+
+
+
+    public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status, User user, Address address) {
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.deliveryDate = deliveryDate;
         this.status = status;
         this.user = user;
         this.address = address;
-        this.items = items;
     }
+
+
+
+
+
+    public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status, List<Cart> cart, User user,
+            Address address) {
+        this.id = id;
+        this.purchaseDate = purchaseDate;
+        this.deliveryDate = deliveryDate;
+        this.status = status;
+        this.cart = cart;
+        this.user = user;
+        this.address = address;
+    }
+
+
+
 
 
     public String getId() {
@@ -75,9 +95,15 @@ public class Order {
     }
 
 
+
+
+
     public void setId(String id) {
         this.id = id;
     }
+
+
+
 
 
     public Timestamp getPurchaseDate() {
@@ -85,9 +111,15 @@ public class Order {
     }
 
 
+
+
+
     public void setPurchaseDate(Timestamp purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
+
+
+
 
 
     public Timestamp getDeliveryDate() {
@@ -95,9 +127,15 @@ public class Order {
     }
 
 
+
+
+
     public void setDeliveryDate(Timestamp deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
+
+
+
 
 
     public Status getStatus() {
@@ -105,9 +143,31 @@ public class Order {
     }
 
 
+
+
+
     public void setStatus(Status status) {
         this.status = status;
     }
+
+
+
+
+
+    public List<Cart> getCart() {
+        return cart;
+    }
+
+
+
+
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+
+
 
 
     public User getUser() {
@@ -115,9 +175,15 @@ public class Order {
     }
 
 
+
+
+
     public void setUser(User user) {
         this.user = user;
     }
+
+
+
 
 
     public Address getAddress() {
@@ -125,32 +191,26 @@ public class Order {
     }
 
 
+
+
+
     public void setAddress(Address address) {
         this.address = address;
     }
 
 
-    public List<Item> getItems() {
-        return items;
-    }
 
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 
 
     @Override
     public String toString() {
         return "Order [id=" + id + ", purchaseDate=" + purchaseDate + ", deliveryDate=" + deliveryDate + ", status="
-                + status + ", user=" + user + ", address=" + address + ", items=" + items + "]";
+                + status + ", cart=" + cart + ", user=" + user + ", address=" + address + "]";
     }
 
+    
 
     
 
-
-
-    
     
 }

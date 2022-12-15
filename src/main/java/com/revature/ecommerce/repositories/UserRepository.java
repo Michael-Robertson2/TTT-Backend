@@ -1,9 +1,10 @@
 package com.revature.ecommerce.repositories;
 
-import com.revature.ecommerce.entities.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import com.revature.ecommerce.models.User;
 
 import java.util.List;
 
