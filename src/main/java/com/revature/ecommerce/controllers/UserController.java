@@ -23,8 +23,7 @@ public class UserController {
             if (userService.isValidPassword(req))
                 if (userService.isValidEmail(req))
                     if (userService.isUniqueEmail(req)) {
-                        //req.setHashedPassword(PasswordHasher.hash(req.getPassword1()));
-                        req.setHashedPassword(req.getPassword1());
+                        req.setHashedPassword(PasswordHasher.hash(req.getPassword1()));
                         userService.signup(req);
                     }
     }

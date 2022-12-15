@@ -5,15 +5,11 @@ import com.revature.ecommerce.utils.utility_classes.PasswordHasher;
 public class NewLoginRequest {
 
     private String email;
-    private String password;
-
-    public NewLoginRequest() {
-        super();
-    }
+    private char[] password;
 
     public NewLoginRequest(String email, String password) {
         this.email = email;
-        this.password = password;
+        this.password = PasswordHasher.hash(password);
     }
 
     public String getEmail() {
@@ -24,11 +20,11 @@ public class NewLoginRequest {
         this.email = email;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 

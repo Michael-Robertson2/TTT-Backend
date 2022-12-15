@@ -13,7 +13,7 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
-    private String password;
+    private char[] password;
 
     @Column(name = "given_name", nullable = false)
     private String givenName;
@@ -36,7 +36,7 @@ public class User {
         super();
     }
 
-    public User(String id, String email, String password, String givenName, String surname) {
+    public User(String id, String email, char[] password, String givenName, String surname) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -61,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
