@@ -1,8 +1,9 @@
 package com.revature.ecommerce.controllers;
 
-import com.revature.ecommerce.dtos.requests.NewUserRequest;
+import com.revature.ecommerce.entities.dtos.requests.NewUserRequest;
 import com.revature.ecommerce.services.UserService;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
+import com.revature.ecommerce.utils.utility_classes.PasswordHasher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,11 @@ public class UserController {
         if (userService.passwordsMatch(req))
             if (userService.isValidPassword(req))
                 if (userService.isValidEmail(req))
-                    if (userService.isUniqueEmail(req))
+                    if (userService.isUniqueEmail(req)) {
+                        //req.setHashedPassword(PasswordHasher.hash(req.getPassword1()));
+                        req.setHashedPassword(req.getPassword1());
                         userService.signup(req);
+                    }
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -30,4 +34,6 @@ public class UserController {
     public InvalidUserException handleUserException(InvalidUserException e) {
         return e;
     }
+
+
 }

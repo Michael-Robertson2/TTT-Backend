@@ -1,10 +1,11 @@
-package com.revature.ecommerce.dtos.requests;
+package com.revature.ecommerce.entities.dtos.requests;
 
 public class NewUserRequest {
 
     private String email;
     private String password1;
     private String password2;
+    private String hashedPassword;
     private String givenName;
     private String surname;
 
@@ -12,6 +13,7 @@ public class NewUserRequest {
         this.email = email;
         this.password1 = password1;
         this.password2 = password2;
+        this.hashedPassword = null;
         this.givenName = givenName;
         this.surname = surname;
     }
@@ -38,6 +40,14 @@ public class NewUserRequest {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getGivenName() {

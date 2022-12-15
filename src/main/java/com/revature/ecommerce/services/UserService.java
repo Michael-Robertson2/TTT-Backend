@@ -1,8 +1,11 @@
 package com.revature.ecommerce.services;
 
-import com.revature.ecommerce.dtos.requests.NewUserRequest;
+import com.revature.ecommerce.entities.dtos.requests.NewLoginRequest;
+import com.revature.ecommerce.entities.dtos.requests.NewUserRequest;
 import com.revature.ecommerce.entities.User;
+import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.repositories.UserRepository;
+import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +21,17 @@ public class UserService {
     }
 
     public void signup(NewUserRequest req) {
-        User createdUser = new User(UUID.randomUUID().toString(), req.getEmail(), req.getPassword1(), req.getGivenName(), req.getSurname());
+        User createdUser = new User(UUID.randomUUID().toString(), req.getEmail(), req.getHashedPassword(), req.getGivenName(), req.getSurname());
         userRepo.save(createdUser);
+    }
+
+    public Principal login(NewLoginRequest req) {
+        User validUser = userRepo.findByEmailAndPassword(req.getEmail(), req.getPassword());
+
+        if (validUser == null) throw new InvalidAuthException("Invalid email or password");
+
+        return new Principal(validUser.getEmail(), validUser.getGivenName(), validUser.getSurname(),
+                    validUser.getRole(), validUser.getCardNumber(), validUser.getExpirationDate());
     }
 
     public boolean passwordsMatch(NewUserRequest req) {
