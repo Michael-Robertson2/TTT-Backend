@@ -1,4 +1,4 @@
-package com.revature.ecommerce.entities;
+package com.revature.ecommerce.entities.enums;
 public enum Status {
     Placed,
     Shipping,

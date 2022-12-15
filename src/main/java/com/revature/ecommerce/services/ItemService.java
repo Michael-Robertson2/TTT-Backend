@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.revature.ecommerce.entities.Item;
-import com.revature.ecommerce.entities.ItemType;
+import com.revature.ecommerce.entities.enums.ItemType;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import org.springframework.stereotype.Service;
 import com.revature.ecommerce.repositories.ItemRepository;

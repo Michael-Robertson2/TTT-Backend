@@ -1,4 +1,4 @@
-package com.revature.ecommerce.entities;
+package com.revature.ecommerce.entities.enums;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

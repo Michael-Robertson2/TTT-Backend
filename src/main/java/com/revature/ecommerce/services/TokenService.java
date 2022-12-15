@@ -1,11 +1,10 @@
 package com.revature.ecommerce.services;
 
-import com.revature.ecommerce.entities.Role;
+import com.revature.ecommerce.entities.enums.Role;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.utils.utility_classes.JWTConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
 

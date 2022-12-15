@@ -3,7 +3,7 @@ package com.revature.ecommerce.controllers;
 import java.util.List;
 
 import com.revature.ecommerce.entities.Item;
-import com.revature.ecommerce.entities.ItemType;
+import com.revature.ecommerce.entities.enums.ItemType;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import org.springframework.web.bind.annotation.*;
 import com.revature.ecommerce.services.ItemService;

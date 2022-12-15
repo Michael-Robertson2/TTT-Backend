@@ -1,6 +1,7 @@
 package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.ecommerce.entities.enums.ItemType;
 
 import javax.persistence.*;
 import java.util.List;

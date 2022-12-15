@@ -3,13 +3,13 @@ package com.revature.ecommerce.repositories;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.revature.ecommerce.entities.enums.Status;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.ecommerce.models.Order;
-import com.revature.ecommerce.models.Status;
+import javax.persistence.criteria.Order;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, String> {

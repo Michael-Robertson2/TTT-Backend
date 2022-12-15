@@ -20,7 +20,7 @@
 1. Admins can manage site inventory. This includes adding new items and update items (in case there is a sale).
 
 ## Schema
-![Schema](https://github.com/221114-Java-React/TTT-Frontend/blob/main/erd.png)
+![Schema](https://github.com/Michael-Robertson2/Robertson-Michael-Code/blob/main/p2.png)
 
 # Tech Stack
 

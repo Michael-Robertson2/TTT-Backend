@@ -1,12 +1,12 @@
 package com.revature.ecommerce.controllers;
 
+import com.revature.ecommerce.entities.dtos.requests.NewOrderRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.ecommerce.dtos.requests.NewOrderRequest;
 import com.revature.ecommerce.services.OrderService;
 
 @CrossOrigin

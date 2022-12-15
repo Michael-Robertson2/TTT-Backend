@@ -1,5 +1,7 @@
 package com.revature.ecommerce.entities;
 
+import com.revature.ecommerce.entities.enums.Role;
+
 import javax.persistence.*;
 
 import java.util.Date;

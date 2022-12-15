@@ -1,6 +1,6 @@
 package com.revature.ecommerce.entities.dtos.requests;
 
-import com.revature.ecommerce.entities.ItemType;
+import com.revature.ecommerce.entities.enums.ItemType;
 
 public class NewItemRequest {
     private String name;

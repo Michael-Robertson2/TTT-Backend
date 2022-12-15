@@ -2,9 +2,9 @@ package com.revature.ecommerce.services;
 
 import java.util.UUID;
 
+import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
 import org.springframework.stereotype.Service;
 
-import com.revature.ecommerce.dtos.requests.NewAddressRequest;
 import com.revature.ecommerce.repositories.AddressRepository;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
 

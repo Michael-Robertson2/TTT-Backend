@@ -1,9 +1,8 @@
 package com.revature.ecommerce.entities.dtos.responses;
 
-import com.revature.ecommerce.entities.Role;
+import com.revature.ecommerce.entities.enums.Role;
 
 import java.util.Date;
-import java.util.PriorityQueue;
 
 public class Principal {
 

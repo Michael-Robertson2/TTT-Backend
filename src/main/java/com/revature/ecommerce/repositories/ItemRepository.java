@@ -1,7 +1,7 @@
 package com.revature.ecommerce.repositories;
 
 import com.revature.ecommerce.entities.Item;
-import com.revature.ecommerce.entities.ItemType;
+import com.revature.ecommerce.entities.enums.ItemType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

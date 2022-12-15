@@ -2,6 +2,8 @@ package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.ecommerce.entities.enums.Status;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
