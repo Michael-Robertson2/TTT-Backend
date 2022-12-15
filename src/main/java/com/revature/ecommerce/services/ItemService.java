@@ -2,9 +2,9 @@ package com.revature.ecommerce.services;
 
 import java.util.List;
 
-import com.revature.ecommerce.entities.Item;
 import org.springframework.stereotype.Service;
 
+import com.revature.ecommerce.models.Item;
 import com.revature.ecommerce.repositories.ItemRepository;
 
 @Service

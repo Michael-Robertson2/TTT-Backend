@@ -2,9 +2,8 @@ package com.revature.ecommerce.controllers;
 
 import java.util.List;
 
-import com.revature.ecommerce.entities.Item;
 import org.springframework.web.bind.annotation.*;
-
+import com.revature.ecommerce.models.Item;
 import com.revature.ecommerce.services.ItemService;
 
 @CrossOrigin
