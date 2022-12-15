@@ -5,7 +5,7 @@ public class NewUserRequest {
     private String email;
     private String password1;
     private String password2;
-    private String hashedPassword;
+    private char[] hashedPassword;
     private String givenName;
     private String surname;
 
@@ -42,11 +42,11 @@ public class NewUserRequest {
         this.password2 = password2;
     }
 
-    public String getHashedPassword() {
+    public char[] getHashedPassword() {
         return hashedPassword;
     }
 
-    public void setHashedPassword(String hashedPassword) {
+    public void setHashedPassword(char[] hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
 
