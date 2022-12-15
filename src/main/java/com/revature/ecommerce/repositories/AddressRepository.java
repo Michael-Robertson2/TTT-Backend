@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.ecommerce.models.Address;
+import com.revature.ecommerce.entities.Address;
 
 @Repository
 public interface AddressRepository extends CrudRepository<Address, String> {

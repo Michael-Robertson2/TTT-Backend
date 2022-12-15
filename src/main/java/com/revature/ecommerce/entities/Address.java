@@ -1,4 +1,4 @@
-package com.revature.ecommerce.models;
+package com.revature.ecommerce.entities;
 
 import javax.persistence.*;
 
