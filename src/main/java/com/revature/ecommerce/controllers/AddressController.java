@@ -1,11 +1,7 @@
 package com.revature.ecommerce.controllers;
 
 import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import com.revature.ecommerce.services.AddressServices;
@@ -27,6 +23,10 @@ public class AddressController {
                 if (addressService.isValidState(req))
                     if (addressService.isValidZipcode(req))
                         addressService.createAddress(req);
-
     }
+
+    /*@PutMapping
+    public void editAddress(@RequestBody NewAddressRequest req) {
+        if
+    }*/
 }

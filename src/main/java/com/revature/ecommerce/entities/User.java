@@ -1,10 +1,12 @@
 package com.revature.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.revature.ecommerce.entities.enums.Role;
 
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,6 +37,13 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "user"
+    )
+    @JsonManagedReference
+    private List<Address> addresses;
     public User() {
         super();
     }
@@ -47,6 +56,17 @@ public class User {
         this.surname = surname;
         this.role = Role.User;
     }
+
+    public User(String id, String email, char[] password, String givenName, String surname, List<Address> addresses) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.addresses = addresses;
+    }
+
+
 
     public String getId() {
         return id;
@@ -110,6 +130,14 @@ public class User {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     @Override

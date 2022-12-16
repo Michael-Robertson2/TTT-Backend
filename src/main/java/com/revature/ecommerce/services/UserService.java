@@ -2,6 +2,7 @@ package com.revature.ecommerce.services;
 
 
 import com.revature.ecommerce.entities.dtos.requests.NewLoginRequest;
+import com.revature.ecommerce.entities.dtos.requests.NewPasswordRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewUserRequest;
 import com.revature.ecommerce.entities.User;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
@@ -10,10 +11,12 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepo;
 
@@ -35,14 +38,30 @@ public class UserService {
                     validUser.getRole(), validUser.getCardNumber(), validUser.getExpirationDate());
     }
 
+    public void updatePassword(NewPasswordRequest req) {
+        userRepo.updatePassword(req.getHashedNewPassword(), req.getEmail(), req.getOldPassword());
+    }
+
     public boolean passwordsMatch(NewUserRequest req) {
-        if (!req.getPassword1().equals(req.getPassword2()))
+        if (!passwordsMatch(req.getPassword1(), req.getPassword2()))
+            throw new InvalidUserException("Passwords do not match");
+        return true;
+    }
+
+    public boolean passwordsMatch(NewPasswordRequest req) {
+        if (!passwordsMatch(req.getNewPassword1(), req.getNewPassword2()))
             throw new InvalidUserException("Passwords do not match");
         return true;
     }
 
     public boolean isValidPassword(NewUserRequest req) {
-        if (!req.getPassword1().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"))
+        if ((!isValidPassword(req.getPassword1())))
+            throw new InvalidUserException("Invalid password, must contain at least eight characters, one letter, and one number");
+        return true;
+    }
+
+    public boolean isValidPassword(NewPasswordRequest req) {
+        if (!isValidPassword(req.getNewPassword1()))
             throw new InvalidUserException("Invalid password, must contain at least eight characters, one letter, and one number");
         return true;
     }
@@ -62,5 +81,21 @@ public class UserService {
         if (emails.contains(req.getEmail()))
             throw new InvalidUserException("An account is already associated with this email");
         return true;
+    }
+
+    public boolean isValidUser(NewPasswordRequest req) {
+        User existingUser = userRepo.findByEmailAndPassword(req.getEmail(), req.getOldPassword());
+
+        if (existingUser == null) throw new InvalidAuthException("Invalid email or old password");
+
+        return true;
+    }
+
+    private boolean passwordsMatch(String password1, String password2) {
+        return password1.equals(password2);
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     }
 }
