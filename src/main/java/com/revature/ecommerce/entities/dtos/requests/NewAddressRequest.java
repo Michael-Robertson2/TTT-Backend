@@ -8,9 +8,13 @@ public class NewAddressRequest {
     private String user_id;
 
 
+
     public NewAddressRequest() {
         super();
     }
+
+
+    
 
 
     public NewAddressRequest(String street, String city, String state, String zipcode, String user_id) {
@@ -20,6 +24,9 @@ public class NewAddressRequest {
         this.zipcode = zipcode;
         this.user_id = user_id;
     }
+
+
+    
 
 
     public String getStreet() {
@@ -62,10 +69,12 @@ public class NewAddressRequest {
     }
 
 
-
     public String getUser_id() {
         return user_id;
     }
+
+
+
 
 
     public void setUser_id(String user_id) {
@@ -73,9 +82,19 @@ public class NewAddressRequest {
     }
 
 
+
+
+
     @Override
     public String toString() {
         return "NewAddressRequest [street=" + street + ", city=" + city + ", state=" + state + ", zipcode=" + zipcode
                 + ", user_id=" + user_id + "]";
     }
+
+    
+
+
+
+
+
 }

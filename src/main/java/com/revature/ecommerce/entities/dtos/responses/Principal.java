@@ -5,7 +5,7 @@ import com.revature.ecommerce.entities.enums.Role;
 import java.util.Date;
 
 public class Principal {
-
+    private String id;
     private String email;
     private String givenName;
     private String surname;
@@ -18,15 +18,48 @@ public class Principal {
         super();
     }
 
-    public Principal(String email, String givenName, String surname, Role role, String cardNumber, Date expirationDate) {
+    
+
+    
+
+    public Principal(String id, String email, String givenName, String surname, Role role, String cardNumber,
+            Date expirationDate) {
+        this.id = id;
         this.email = email;
         this.givenName = givenName;
         this.surname = surname;
         this.role = role;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
-        this.token = null;
     }
+
+
+
+
+
+    public Principal(String id, String email, String givenName, String surname, Role role, String cardNumber,
+            Date expirationDate, String token) {
+        this.id = id;
+        this.email = email;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.role = role;
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.token = token;
+    }
+
+    
+    public String getId() {
+        return id;
+    }
+
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getEmail() {
         return email;
@@ -84,16 +117,17 @@ public class Principal {
         this.token = token;
     }
 
+
+
     @Override
     public String toString() {
-        return "Principal{" +
-                "email='" + email + '\'' +
-                ", givenName='" + givenName + '\'' +
-                ", surname='" + surname + '\'' +
-                ", role=" + role +
-                ", cardNumber='" + cardNumber + '\'' +
-                ", expirationDate=" + expirationDate +
-                ", token='" + token + '\'' +
-                '}';
+        return "Principal [id=" + id + ", email=" + email + ", givenName=" + givenName + ", surname=" + surname
+                + ", role=" + role + ", cardNumber=" + cardNumber + ", expirationDate=" + expirationDate + ", token="
+                + token + "]";
     }
+
+    
+
+
+
 }

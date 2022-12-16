@@ -22,13 +22,14 @@ public class TokenService {
     public String generateToken(Principal subject) {
         long now = System.currentTimeMillis();
         JwtBuilder tokenBuilder = Jwts.builder()
+                .setId(subject.getId())
                 .setIssuer("ecommerce")
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + jwtConfig.getExpiration()))
                 .setSubject(subject.getEmail())
                 .claim("givenName", subject.getGivenName())
                 .claim("surname", subject.getSurname())
-                .claim("role", subject.getRole().toString())
+                .claim("role", subject.getRole())
                 .claim("cardNumber", subject.getCardNumber())
                 .claim("expirationDate", (subject.getExpirationDate() == null ? null : subject.getExpirationDate().toString()))
                 .signWith(jwtConfig.getSigAlg(), jwtConfig.getSigningKey());
@@ -41,8 +42,8 @@ public class TokenService {
                     .setSigningKey(jwtConfig.getSigningKey())
                     .parseClaimsJws(token)
                     .getBody();
-            return new Principal(claims.get("email", String.class), claims.get("givenName", String.class),
-                    claims.get("surname", String.class), claims.get("role", Role.class),
+            return new Principal(claims.getId(), claims.get("email", String.class), claims.get("givenName", String.class),
+                    claims.get("surname", String.class), Role.valueOf(claims.get("role", String.class)),
                     claims.get("cardNumber", String.class), claims.get("expirationDate", Date.class));
         } catch (Exception e) {
             return null;
