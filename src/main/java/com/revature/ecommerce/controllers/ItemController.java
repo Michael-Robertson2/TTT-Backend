@@ -35,19 +35,19 @@ public class ItemController {
     }
 
     
-    @GetMapping
+    @GetMapping("/all")
     public List<Item> getAllItems() {
         return itemService.getAllItems();
     }
 
     
-    @GetMapping
+    @GetMapping("/byType")
     public List<Item> getAllItemsByType(ItemType type){
         return itemService.getAllByType(type);
     }
 
 
-    @GetMapping
+    @GetMapping("/byName")
     public List<Item> getAllItemsByName(String name){
         return itemService.getAllByName(name);
     }

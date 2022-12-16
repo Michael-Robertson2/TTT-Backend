@@ -14,8 +14,28 @@ public class CartKey implements Serializable {
     @Column(name = "user_id")
     String userId;
 
+    public CartKey() {
+        super();
+    }
+
     public CartKey(String itemId, String userId) {
         this.itemId = itemId;
+        this.userId = userId;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

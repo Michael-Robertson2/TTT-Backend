@@ -5,12 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.revature.ecommerce.entities.Order;
 import com.revature.ecommerce.entities.enums.Status;
 import com.revature.ecommerce.entities.dtos.requests.NewOrderRequest;
 import org.springframework.stereotype.Service;
 import com.revature.ecommerce.repositories.OrderRepository;
 
-import javax.persistence.criteria.Order;
 
 @Service
 public class OrderService {
