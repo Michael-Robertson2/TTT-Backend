@@ -3,6 +3,7 @@ package com.revature.ecommerce.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.revature.ecommerce.entities.enums.Status;
+import com.revature.ecommerce.entities.junctions.OrdersAndItems;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,12 +28,12 @@ public class Order {
 
 
     @OneToMany(
-            mappedBy = "cartOrder",
+            mappedBy = "order",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     @JsonManagedReference
-    private List<Cart> cart;
+    private List<OrdersAndItems> orderItems;
 
 
     @ManyToOne
@@ -71,19 +72,16 @@ public class Order {
 
 
 
-    public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status, List<Cart> cart, User user,
-            Address address) {
+    public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status,
+            List<OrdersAndItems> orderItems, User user, Address address) {
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.deliveryDate = deliveryDate;
         this.status = status;
-        this.cart = cart;
+        this.orderItems = orderItems;
         this.user = user;
         this.address = address;
     }
-
-
-
 
 
     public String getId() {
@@ -145,23 +143,16 @@ public class Order {
     public void setStatus(Status status) {
         this.status = status;
     }
-
-
-
-
-
-    public List<Cart> getCart() {
-        return cart;
+    
+    public List<OrdersAndItems> getOrderItems() {
+        return orderItems;
     }
 
 
 
-
-
-    public void setCart(List<Cart> cart) {
-        this.cart = cart;
+    public void setOrderItems(List<OrdersAndItems> orderItems) {
+        this.orderItems = orderItems;
     }
-
 
 
 
@@ -194,15 +185,21 @@ public class Order {
         this.address = address;
     }
 
-
-
-
-
+    
     @Override
     public String toString() {
         return "Order [id=" + id + ", purchaseDate=" + purchaseDate + ", deliveryDate=" + deliveryDate + ", status="
-                + status + ", cart=" + cart + ", user=" + user + ", address=" + address + "]";
+                + status + ", orderItems=" + orderItems + ", user=" + user + ", address=" + address + "]";
     }
+    
+
+    
+
+
+
+
+
+    
 
 }
 

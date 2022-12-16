@@ -25,7 +25,7 @@ public class ItemController {
 
 
     @PostMapping
-    public void signup(@RequestBody NewItemRequest req) {
+    public void createItem(@RequestBody NewItemRequest req) {
         if (itemService.isValidName(req))
             if (itemService.isValidstock(req))
                 if (itemService.isValidMsrp(req))
@@ -35,15 +35,21 @@ public class ItemController {
     }
 
     
-    @GetMapping
+    @GetMapping("/all")
     public List<Item> getAllItems() {
         return itemService.getAllItems();
     }
 
     
-    @GetMapping
+    @GetMapping("/byType")
     public List<Item> getAllItemsByType(ItemType type){
         return itemService.getAllByType(type);
+    }
+
+
+    @GetMapping("/byName")
+    public List<Item> getAllItemsByName(String name){
+        return itemService.getAllByName(name);
     }
 
 

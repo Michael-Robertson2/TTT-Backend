@@ -2,6 +2,8 @@ package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.revature.ecommerce.entities.enums.ItemType;
+import com.revature.ecommerce.entities.junctions.Cart;
+import com.revature.ecommerce.entities.junctions.OrdersAndItems;
 
 import javax.persistence.*;
 import java.util.List;
@@ -41,21 +43,19 @@ public class Item {
 
 
     @OneToMany(
-            mappedBy = "cartItem",
+            mappedBy = "item",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     @JsonManagedReference
-    private List<Cart> cart;
+    private List<Cart> carts;
 
     @OneToMany(
-            mappedBy = "itemOrdered",
-            fetch = FetchType.EAGER,
+            mappedBy = "item",
             cascade = CascadeType.ALL
     )
     @JsonManagedReference
     private List<OrdersAndItems> itemOrders;
-    private List<Order> orders;
 
 
     public Item() {
@@ -83,7 +83,7 @@ public class Item {
 
 
     public Item(String id, String name, String description, Integer stock, Double msrp, Double current_price,
-            String img_url, ItemType itemType, List<Cart> cart, List<OrdersAndItems> itemOrders) {
+            String img_url, ItemType itemType, List<Cart> carts, List<OrdersAndItems> itemOrders) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -92,7 +92,7 @@ public class Item {
         this.current_price = current_price;
         this.img_url = img_url;
         this.itemType = itemType;
-        this.cart = cart;
+        this.carts = carts;
         this.itemOrders = itemOrders;
     }
 
@@ -193,23 +193,14 @@ public class Item {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Cart> getCart() {
-        return cart;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
 
 
-    public void setCart(List<Cart> cart) {
-        this.cart = cart;
+    public void setCart(List<Cart> carts) {
+        this.carts = carts;
     }
 
 
@@ -231,15 +222,6 @@ public class Item {
     public String toString() {
         return "Item [id=" + id + ", name=" + name + ", description=" + description + ", stock=" + stock + ", msrp="
                 + msrp + ", current_price=" + current_price + ", img_url=" + img_url + ", itemType=" + itemType
-                + ", cart=" + cart + ", itemOrders=" + itemOrders + "]";
+                + ", carts=" + carts + ", itemOrders=" + itemOrders + "]";
     }
-
-
-    
-
-
-    
-
-
-    
 }
