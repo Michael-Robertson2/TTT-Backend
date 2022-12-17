@@ -2,12 +2,15 @@ package com.revature.ecommerce.controllers;
 
 import com.revature.ecommerce.entities.dtos.requests.NewPasswordRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewUserRequest;
+import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.services.UserService;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import com.revature.ecommerce.utils.utility_classes.PasswordHasher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
