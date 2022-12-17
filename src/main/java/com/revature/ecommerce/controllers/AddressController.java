@@ -1,6 +1,7 @@
 package com.revature.ecommerce.controllers;
 
 import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
+
 import com.revature.ecommerce.entities.dtos.responses.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +49,8 @@ public class AddressController {
                 if (addressService.isValidState(req))
                     if (addressService.isValidZipcode(req))
                         addressService.createAddress(req);
-
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidAuthException.class)
@@ -62,4 +63,9 @@ public class AddressController {
     public InvalidAddressException handleAddressException(InvalidAddressException e) {
         return e;
     }
+
+    /*@PutMapping
+    public void editAddress(@RequestBody NewAddressRequest req) {
+        if
+    }*/
 }

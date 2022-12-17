@@ -38,6 +38,13 @@ public class Address {
         super();
     }
 
+    public Address(String id, String street, String city, String state, String zipcode) {
+        this.id = id;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
 
     public Address(String id, String street, String city, String state, String zipcode, User user) {
         this.id = id;

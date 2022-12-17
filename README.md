@@ -48,3 +48,32 @@
 - Create a Pull Request
 
 [Frontend README](https://github.com/221114-Java-React/TTT-Frontend/blob/main/README.md)
+
+## Development Setup
+
+- create a resources directory `src/main/resources`
+- in `resources` create `applications.properties` file 
+  - needs a `salt` and `saltTwo`
+- in `resources` create a `application.yaml`
+
+```
+server:
+  port: *****
+  servlet:
+    context-path: *****
+
+spring:
+  application:
+    name: ******
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ******
+    username: ******
+    password: ******
+  jpa:
+    database-platform: ********
+    show-sql: ******
+    hibernate:
+      # hibernate will drop and create your tables whenever you start your application.
+      ddl-auto: ********
+```

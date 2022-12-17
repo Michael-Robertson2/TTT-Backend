@@ -36,11 +36,9 @@ public class Item {
     @Column(name = "img_url")
     private String img_url;
 
-    @Column(name="role", nullable = false)
+    @Column(name="item_type_id", nullable = false)
     @Enumerated
     private ItemType itemType;
-
-
 
     @OneToMany(
             mappedBy = "item",
