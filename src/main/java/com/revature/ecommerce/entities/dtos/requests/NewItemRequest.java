@@ -6,7 +6,7 @@ public class NewItemRequest {
     private String name;
     private Integer stock;
     private Double msrp;
-    private Double currentPrice;
+    private Double current_price;
     private ItemType type;
 
 
@@ -17,11 +17,11 @@ public class NewItemRequest {
 
 
 
-    public NewItemRequest(String name, Integer stock, Double msrp, Double currentPrice, ItemType type) {
+    public NewItemRequest(String name, Integer stock, Double msrp, Double current_price, ItemType type) {
         this.name = name;
         this.stock = stock;
         this.msrp = msrp;
-        this.currentPrice = currentPrice;
+        this.current_price = current_price;
         this.type = type;
     }
 
@@ -63,14 +63,14 @@ public class NewItemRequest {
 
 
 
-    public Double getCurrentPrice() {
-        return currentPrice;
+    public Double getCurrent_price() {
+        return current_price;
     }
 
 
 
-    public void setCurrentPrice(Double currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setCurrent_price(Double current_price) {
+        this.current_price = current_price;
     }
 
 
@@ -89,7 +89,7 @@ public class NewItemRequest {
 
     @Override
     public String toString() {
-        return "NewItemRequest [name=" + name + ", stock=" + stock + ", msrp=" + msrp + ", currentPrice=" + currentPrice
+        return "NewItemRequest [name=" + name + ", stock=" + stock + ", msrp=" + msrp + ", current_price=" + current_price
                 + ", type=" + type + "]";
     }
 

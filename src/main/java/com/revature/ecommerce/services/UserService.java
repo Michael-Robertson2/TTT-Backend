@@ -34,7 +34,7 @@ public class UserService {
 
         if (validUser == null) throw new InvalidAuthException("Invalid email or password");
 
-        return new Principal(validUser.getEmail(), validUser.getGivenName(), validUser.getSurname(),
+        return new Principal(validUser.getId(), validUser.getEmail(), validUser.getGivenName(), validUser.getSurname(),
                     validUser.getRole(), validUser.getCardNumber(), validUser.getExpirationDate());
     }
 

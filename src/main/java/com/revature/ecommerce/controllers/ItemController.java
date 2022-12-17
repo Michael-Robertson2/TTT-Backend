@@ -2,12 +2,21 @@ package com.revature.ecommerce.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.enums.ItemType;
+import com.revature.ecommerce.entities.enums.Role;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
+import com.revature.ecommerce.entities.dtos.responses.Principal;
+
 import org.springframework.web.bind.annotation.*;
 import com.revature.ecommerce.services.ItemService;
+import com.revature.ecommerce.services.TokenService;
+
 import org.springframework.http.HttpStatus;
+
+import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
 
 @CrossOrigin
@@ -16,16 +25,26 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
 public class ItemController {
 
     private final ItemService itemService;
+    private final TokenService tokenService;
 
     
 
-    public ItemController(ItemService itemService) {
+
+    public ItemController(ItemService itemService, TokenService tokenService) {
         this.itemService = itemService;
+        this.tokenService = tokenService;
     }
 
 
     @PostMapping
-    public void createItem(@RequestBody NewItemRequest req) {
+    public void createItem(@RequestBody NewItemRequest req, HttpServletRequest request) {
+        String token = request.getHeader("authorization");
+        if (token == null || token.isEmpty()) throw new InvalidAuthException("You are not signed in");
+
+        Principal principal = tokenService.extractRequesterDetails(token);
+        if (principal == null) throw new InvalidAuthException("Invalid token");
+        if (!principal.getRole().equals(Role.Admin)) throw new InvalidAuthException("You are not authorized to do this");
+
         if (itemService.isValidName(req))
             if (itemService.isValidstock(req))
                 if (itemService.isValidMsrp(req))
@@ -55,7 +74,13 @@ public class ItemController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidItemException.class)
-    public InvalidItemException handleUserException(InvalidItemException e) {
+    public InvalidItemException handleItemException(InvalidItemException e) {
+        return e;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidAuthException.class)
+    public InvalidAuthException handleAuthException(InvalidAuthException e) {
         return e;
     }
 }

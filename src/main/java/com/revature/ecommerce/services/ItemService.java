@@ -22,7 +22,7 @@ public class ItemService {
     }
 
     public void createItem(NewItemRequest req) {
-        Item createdItem = new Item(UUID.randomUUID().toString(), req.getName(), null, req.getStock(), req.getMsrp(), req.getCurrentPrice(), null, req.getType());
+        Item createdItem = new Item(UUID.randomUUID().toString(), req.getName(), null, req.getStock(), req.getMsrp(), req.getCurrent_price(), null, req.getType());
         itemRepository.save(createdItem);
     }
 
@@ -70,7 +70,7 @@ public class ItemService {
     }
 
     public boolean isValidCurrentPrice(NewItemRequest req) {
-        if (req.getCurrentPrice() < 0.00)
+        if (req.getCurrent_price() < 0.00)
             throw new InvalidItemException("Enter a valid price");
         return true;
     }
