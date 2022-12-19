@@ -1,12 +1,15 @@
 package com.revature.ecommerce.controllers;
 
+import com.revature.ecommerce.entities.dtos.requests.NewInfoRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewPasswordRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewUserRequest;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
+import com.revature.ecommerce.services.TokenService;
 import com.revature.ecommerce.services.UserService;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import com.revature.ecommerce.utils.utility_classes.PasswordHasher;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final TokenService tokenService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TokenService tokenService) {
         this.userService = userService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping
@@ -33,7 +38,7 @@ public class UserController {
                     }
     }
 
-    @PutMapping
+    @PutMapping("/password")
     public void editPassword(@RequestBody NewPasswordRequest req) {
         if (userService.isValidUser(req))
             if (userService.passwordsMatch(req))
@@ -41,6 +46,44 @@ public class UserController {
                     req.setHashedNewPassword(req.getNewPassword1());
                     userService.updatePassword(req);
         }
+    }
+
+    @PutMapping
+    public void updateInfo(@RequestBody NewInfoRequest req, HttpServletRequest hReq) {
+        Principal principal = isLoggedIn(hReq);
+        req.setId(principal.getId());
+
+        boolean sameEmail = false;
+        if (req.getNewEmail().isEmpty()) {
+            req.setNewEmail(principal.getEmail());
+            sameEmail = true;
+        }
+        if (req.getNewGivenName().isEmpty())
+            req.setNewGivenName(principal.getGivenName());
+        if (req.getNewSurname().isEmpty())
+            req.setNewSurname(principal.getSurname());
+        if (req.getNewCardNumber().isEmpty())
+            req.setNewCardNumber(principal.getCardNumber());
+        if (req.getNewExpirationDate().isEmpty())
+            req.setNewExpirationDate((principal.getExpirationDate() == null ? null : principal.getExpirationDate().toString()));
+
+        if (userService.isValidEmail(req))
+            if (sameEmail || userService.isUniqueEmail(req))
+                if (userService.isValidCardNumber(req))
+                    if (userService.isValidExpDate(req)) //Needs to be in MM/yyyy format.
+                        if (userService.cardAndDate(req))
+                            userService.updateInfo(req);
+
+    }
+
+    private Principal isLoggedIn(HttpServletRequest req) {
+        String token = req.getHeader("authorization");
+        if (token == null || token.isEmpty()) throw new InvalidAuthException("Invalid Token");
+
+        Principal principal = tokenService.extractRequesterDetails(token);
+        if (principal == null) throw new InvalidAuthException("Please sign in to edit your information");
+
+        return principal;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -8,15 +8,20 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.Date;
 
 @Service
 public class TokenService {
 
     private JWTConfig jwtConfig;
+    private DateFormat dateFormat;
 
     public TokenService(JWTConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     public String generateToken(Principal subject) {
@@ -46,9 +51,10 @@ public class TokenService {
 
             return new Principal(claims.getId(), claims.get("email", String.class), claims.get("givenName", String.class),
                     claims.get("surname", String.class), Role.valueOf(claims.get("role", String.class)),
-                    claims.get("cardNumber", String.class), claims.get("expirationDate", Date.class));
-            
+                    claims.get("cardNumber", String.class), (claims.get("expirationDate", String.class) == null ? null : dateFormat.parse(claims.get("expirationDate", String.class))));
+
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
