@@ -69,7 +69,7 @@ public class UserController {
 
         if (userService.isValidEmail(req))
             if (sameEmail || userService.isUniqueEmail(req))
-                if (userService.isValidCardNumber(req))
+                if (userService.isValidCardNumber(req)) //Needs to be either 15 or 16 digits, no other length or type of character allowed.
                     if (userService.isValidExpDate(req)) //Needs to be in MM/yyyy format.
                         if (userService.cardAndDate(req))
                             userService.updateInfo(req);
