@@ -149,7 +149,7 @@ public class UserService {
 
     private boolean isValidDate(String date) {
         if (date == null) return true;
-        return date.matches("^(0?[1-9]|1[012])/((?:19|20)[0-9][0-9])$");
+        return date.matches("^((?:19|20)[0-9][0-9])-(0?[1-9]|1[012])$");
     }
 
     private boolean isValidCardNumber(String num) {
@@ -167,7 +167,7 @@ public class UserService {
 
     private Date toDate(String date) {
         try {
-            DateFormat df = new SimpleDateFormat("MM/yyyy");
+            DateFormat df = new SimpleDateFormat("yyyy-MM");
             return df.parse(date);
         } catch (Exception e) {
             return null;
