@@ -44,6 +44,9 @@ public class User {
     )
     @JsonManagedReference
     private List<Address> addresses;
+
+
+    
     public User() {
         super();
     }

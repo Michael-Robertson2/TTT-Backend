@@ -1,8 +1,11 @@
 package com.revature.ecommerce.services;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.revature.ecommerce.entities.Address;
 import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
+
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,21 @@ public class AddressServices {
     public void createAddress(NewAddressRequest req) {
 
         addressRepository.save(UUID.randomUUID().toString(), req.getStreet(), req.getCity(), req.getState(), req.getZipcode(), req.getUser_id());
+    }
+
+
+    public void updateAddress(NewAddressRequest req, String id, String user_id) {
+        addressRepository.update(req.getStreet(), req.getCity(), req.getState(), req.getZipcode(), id, user_id);
+    }
+
+
+    public void deleteAddress(String id, String user_id) {
+        addressRepository.delete(id, user_id);
+    }
+
+
+    public List<Address> getAllByUserId(String user_id){
+        return addressRepository.findAllByUserId(user_id);
     }
 
 

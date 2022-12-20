@@ -19,7 +19,7 @@ public class Item {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable= false)
     private String description;
 
 
@@ -37,12 +37,12 @@ public class Item {
     private String img_url;
 
     @Column(name="item_type_id", nullable = false)
-    @Enumerated
+    @Enumerated(EnumType.ORDINAL)
     private ItemType itemType;
 
     @OneToMany(
             mappedBy = "item",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
     @JsonManagedReference
@@ -50,6 +50,7 @@ public class Item {
 
     @OneToMany(
             mappedBy = "item",
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
     @JsonManagedReference

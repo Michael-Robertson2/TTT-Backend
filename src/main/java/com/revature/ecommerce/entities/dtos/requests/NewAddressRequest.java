@@ -15,6 +15,19 @@ public class NewAddressRequest {
 
 
     
+    
+
+
+    public NewAddressRequest(String street, String city, String state, String zipcode) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
+
+
+
 
 
     public NewAddressRequest(String street, String city, String state, String zipcode, String user_id) {
