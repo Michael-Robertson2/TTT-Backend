@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @CrossOrigin
 @RestController
@@ -54,18 +57,27 @@ public class UserController {
         req.setId(principal.getId());
 
         boolean sameEmail = false;
-        if (req.getNewEmail().isEmpty()) {
+        if (req.getNewEmail() == null || req.getNewEmail().isEmpty())
             req.setNewEmail(principal.getEmail());
+        if (req.getNewEmail().equals(principal.getEmail()))
             sameEmail = true;
-        }
-        if (req.getNewGivenName().isEmpty())
+        if (req.getNewGivenName() == null || req.getNewGivenName().isEmpty())
             req.setNewGivenName(principal.getGivenName());
-        if (req.getNewSurname().isEmpty())
+        if (req.getNewSurname() == null || req.getNewSurname().isEmpty())
             req.setNewSurname(principal.getSurname());
-        if (req.getNewCardNumber().isEmpty())
+        if (req.getNewCardNumber() == null || req.getNewCardNumber().isEmpty())
             req.setNewCardNumber(principal.getCardNumber());
-        if (req.getNewExpirationDate().isEmpty())
-            req.setNewExpirationDate((principal.getExpirationDate() == null ? null : principal.getExpirationDate().toString()));
+        if (req.getNewExpirationDate() == null || req.getNewExpirationDate().isEmpty()) {
+            Date expDate = principal.getExpirationDate();
+            String dateStr;
+            if (expDate != null) {
+                DateFormat df = new SimpleDateFormat("yyyy-MM");
+                dateStr = df.format(expDate);
+            } else {
+                dateStr = null;
+            }
+            req.setNewExpirationDate(dateStr);
+        }
 
         if (userService.isValidEmail(req))
             if (sameEmail || userService.isUniqueEmail(req))

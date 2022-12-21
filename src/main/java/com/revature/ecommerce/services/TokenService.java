@@ -54,7 +54,6 @@ public class TokenService {
                     claims.get("cardNumber", String.class), (claims.get("expirationDate", String.class) == null ? null : dateFormat.parse(claims.get("expirationDate", String.class))));
 
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
