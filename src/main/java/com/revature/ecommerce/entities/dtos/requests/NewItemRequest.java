@@ -1,9 +1,11 @@
 package com.revature.ecommerce.entities.dtos.requests;
 
+
 import com.revature.ecommerce.entities.enums.ItemType;
 
 public class NewItemRequest {
     private String name;
+    private String description;
     private Integer stock;
     private Double msrp;
     private Double current_price;
@@ -17,8 +19,14 @@ public class NewItemRequest {
 
 
 
-    public NewItemRequest(String name, Integer stock, Double msrp, Double current_price, ItemType type) {
+    
+
+
+
+    public NewItemRequest(String name, String description, Integer stock, Double msrp, Double current_price,
+            ItemType type) {
         this.name = name;
+        this.description = description;
         this.stock = stock;
         this.msrp = msrp;
         this.current_price = current_price;
@@ -43,8 +51,17 @@ public class NewItemRequest {
         return stock;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
 
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
     public void setStock(Integer stock) {
         this.stock = stock;
     }
@@ -87,11 +104,26 @@ public class NewItemRequest {
 
 
 
+
+
+
+
     @Override
     public String toString() {
-        return "NewItemRequest [name=" + name + ", stock=" + stock + ", msrp=" + msrp + ", current_price=" + current_price
-                + ", type=" + type + "]";
+        return "NewItemRequest [name=" + name + ", description=" + description + ", stock=" + stock + ", msrp=" + msrp
+                + ", current_price=" + current_price + ", type=" + type + "]";
     }
+
+
+
+    
+
+
+
+
+
+
+
 
 
     

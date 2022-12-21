@@ -1,11 +1,11 @@
 package com.revature.ecommerce.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.ecommerce.entities.Item;
-import com.revature.ecommerce.entities.enums.ItemType;
 import com.revature.ecommerce.entities.enums.Role;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
@@ -46,11 +46,12 @@ public class ItemController {
         if (!principal.getRole().equals(Role.Admin)) throw new InvalidAuthException("You are not authorized to do this");
 
         if (itemService.isValidName(req))
-            if (itemService.isValidstock(req))
-                if (itemService.isValidMsrp(req))
-                    if (itemService.isValidCurrentPrice(req))
-                        if(itemService.isValidType(req))
-                            itemService.createItem(req);
+            if(itemService.isValidDescription(req))
+                if (itemService.isValidstock(req))
+                    if (itemService.isValidMsrp(req))
+                        if (itemService.isValidCurrentPrice(req))
+                            if(itemService.isValidType(req))
+                                itemService.createItem(req);
     }
 
     
@@ -59,16 +60,51 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
-    
-    @GetMapping("/byType")
-    public List<Item> getAllItemsByType(ItemType type){
-        return itemService.getAllByType(type);
+
+    @GetMapping("/id")
+        public Optional<Item> getItemById(String id){
+        return itemService.getById(id);
     }
 
 
-    @GetMapping("/byName")
+
+    @GetMapping("/name")
     public List<Item> getAllItemsByName(String name){
         return itemService.getAllByName(name);
+    }
+
+
+
+    @PutMapping("/update/id")
+    public void updateAddress(@RequestBody NewItemRequest req, @RequestParam String id, HttpServletRequest request){
+        String token = request.getHeader("authorization");
+        if (token == null || token.isEmpty()) throw new InvalidAuthException("You are not signed in");
+        
+        Principal principal = tokenService.extractRequesterDetails(token);
+        if (principal == null) throw new InvalidAuthException("Invalid token");
+        if (!principal.getRole().equals(Role.Admin)) throw new InvalidAuthException("You are not authorized to do this");
+
+        if (itemService.isValidName(req))
+            if(itemService.isValidDescription(req))
+                if (itemService.isValidstock(req))
+                    if (itemService.isValidMsrp(req))
+                        if (itemService.isValidCurrentPrice(req))
+                            if(itemService.isValidType(req))
+                                itemService.updateItem(req, id);
+
+    }
+
+
+    @DeleteMapping("/remove/id")
+    public void removeItem(String id, HttpServletRequest request){
+        String token = request.getHeader("authorization");
+        if (token == null || token.isEmpty()) throw new InvalidAuthException("You are not signed in");
+
+        Principal principal = tokenService.extractRequesterDetails(token);
+        if (principal == null) throw new InvalidAuthException("Invalid token");
+        if (!principal.getRole().equals(Role.Admin)) throw new InvalidAuthException("You are not authorized to do this");
+
+        itemService.deleteItem(id);
     }
 
 
