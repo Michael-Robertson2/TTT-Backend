@@ -29,10 +29,10 @@ public class Order {
 
     @OneToMany(
             mappedBy = "order",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonManagedReference
+    @JsonManagedReference(value="order-item-connection")
     private List<OrdersAndItems> orderItems;
 
 
@@ -41,7 +41,7 @@ public class Order {
             name = "user_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value= "user-orders")
     private User user;
 
     @ManyToOne
@@ -49,12 +49,8 @@ public class Order {
             name = "shipping_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value = "address-orders")
     private Address address;
-
-
-    
-
 
     public Order() {
         super();
@@ -68,10 +64,6 @@ public class Order {
         this.address = address;
     }
 
-
-
-
-
     public Order(String id, Timestamp purchaseDate, Timestamp deliveryDate, Status status,
             List<OrdersAndItems> orderItems, User user, Address address) {
         this.id = id;
@@ -83,62 +75,33 @@ public class Order {
         this.address = address;
     }
 
-
     public String getId() {
         return id;
     }
-
-
-
-
 
     public void setId(String id) {
         this.id = id;
     }
 
-
-
-
-
     public Timestamp getPurchaseDate() {
         return purchaseDate;
     }
-
-
-
-
 
     public void setPurchaseDate(Timestamp purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
-
-
-
-
     public Timestamp getDeliveryDate() {
         return deliveryDate;
     }
-
-
-
-
 
     public void setDeliveryDate(Timestamp deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
-
-
-
-
     public Status getStatus() {
         return status;
     }
-
-
-
-
 
     public void setStatus(Status status) {
         this.status = status;
@@ -148,58 +111,32 @@ public class Order {
         return orderItems;
     }
 
-
-
     public void setOrderItems(List<OrdersAndItems> orderItems) {
         this.orderItems = orderItems;
     }
-
-
-
 
     public User getUser() {
         return user;
     }
 
-
-
-
-
     public void setUser(User user) {
         this.user = user;
     }
-
-
-
-
 
     public Address getAddress() {
         return address;
     }
 
-
-
-
-
     public void setAddress(Address address) {
         this.address = address;
     }
 
-    
+
+
     @Override
     public String toString() {
         return "Order [id=" + id + ", purchaseDate=" + purchaseDate + ", deliveryDate=" + deliveryDate + ", status="
                 + status + ", orderItems=" + orderItems + ", user=" + user + ", address=" + address + "]";
     }
-    
-
-    
-
-
-
-
-
-    
-
 }
 

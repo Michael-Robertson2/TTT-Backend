@@ -18,7 +18,7 @@ public class Cart {
     CartKey id;
 
     @Column(name = "amount", nullable = false)
-    private Integer amount;
+    private int amount;
 
     @ManyToOne
     @MapsId("itemId")
@@ -26,7 +26,7 @@ public class Cart {
             name = "item_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value="item-in-cart")
     private Item item;
 
 
@@ -36,7 +36,7 @@ public class Cart {
             name = "user_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value="user-cart")
     private User user;
 
 
@@ -44,19 +44,11 @@ public class Cart {
         super();
     }
 
-    public Cart(CartKey id, Item item, User user, Integer amount) {
+    public Cart(CartKey id, Item item, User user, int amount) {
         this.id = id;
         this.item = item;
         this.user = user;
         this.amount = amount;
-    }
-
-
-    public Cart(CartKey id, Integer amount, Item item, User user) {
-        this.id = id;
-        this.amount = amount;
-        this.item = item;
-        this.user = user;
     }
 
     public CartKey getId() {
@@ -83,11 +75,11 @@ public class Cart {
         this.user = user;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

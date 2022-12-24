@@ -170,7 +170,6 @@ public class UserService {
             DateFormat df = new SimpleDateFormat("yyyy-MM");
             return df.parse(date);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

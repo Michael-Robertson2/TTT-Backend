@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpStatus;
-import com.revature.ecommerce.services.AddressServices;
+import com.revature.ecommerce.services.AddressService;
 import com.revature.ecommerce.services.TokenService;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
@@ -30,12 +30,12 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
-    private final AddressServices addressService;
+    private final AddressService addressService;
     private final TokenService tokenService;
     
     
     
-    public AddressController(AddressServices addressService, TokenService tokenService) {
+    public AddressController(AddressService addressService, TokenService tokenService) {
         this.addressService = addressService;
         this.tokenService = tokenService;
     }

@@ -16,10 +16,28 @@ public class OrdersAndItemsKey implements Serializable{
     @Column(name = "order_id")
     String orderId;
 
-    
+    public OrdersAndItemsKey() {
+        super();
+    }
 
     public OrdersAndItemsKey(String itemId, String orderId) {
         this.itemId = itemId;
+        this.orderId = orderId;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

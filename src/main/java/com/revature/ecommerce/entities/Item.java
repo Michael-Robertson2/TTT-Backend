@@ -45,7 +45,7 @@ public class Item {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonManagedReference
+    @JsonManagedReference(value="item-in-cart")
     private List<Cart> carts;
 
     @OneToMany(
@@ -53,7 +53,7 @@ public class Item {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonManagedReference
+    @JsonManagedReference(value="item-order-connection")
     private List<OrdersAndItems> itemOrders;
 
 
@@ -215,7 +215,9 @@ public class Item {
         this.itemOrders = itemOrders;
     }
 
-
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
 
     @Override
     public String toString() {

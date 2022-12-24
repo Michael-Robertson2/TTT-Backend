@@ -17,10 +17,10 @@ public class OrdersAndItems {
     OrdersAndItemsKey id;
     
     @Column(name = "amount", nullable = false)
-    private Integer amount;
+    private int amount;
 
     @Column(name = "purchase_price", nullable = false)
-    private Double purchasePrice;
+    private double purchasePrice;
 
     @ManyToOne
     @MapsId("itemId")
@@ -28,7 +28,7 @@ public class OrdersAndItems {
             name = "item_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value="item-order-connection")
     private Item item;
 
 
@@ -38,7 +38,7 @@ public class OrdersAndItems {
             name = "order_id",
             nullable = false
     )
-    @JsonBackReference
+    @JsonBackReference(value="order-item-connection")
     private Order order;
 
 
@@ -46,7 +46,7 @@ public class OrdersAndItems {
         super();
     }
 
-    public OrdersAndItems(OrdersAndItemsKey id, Integer amount, Double purchasePrice, Item item, Order order) {
+    public OrdersAndItems(OrdersAndItemsKey id, int amount, double purchasePrice, Item item, Order order) {
         this.id = id;
         this.amount = amount;
         this.purchasePrice = purchasePrice;
@@ -64,11 +64,11 @@ public class OrdersAndItems {
 
 
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -88,19 +88,19 @@ public class OrdersAndItems {
         this.order = order;
     }
 
-    public Double getPurchasePrice() {
+    public double getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Double purchasePrice) {
+    public void setPurchasePrice(double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
     @Override
     public String toString() {
         return "OrdersAndItems{" +
                 "id=" + id +
-                ", item=" + item +
-                ", order=" + order +
+                ", item=" + item.getId() +
+                ", order=" + order.getId() +
                 ", amount=" + amount +
                 ", purchasePrice=" + purchasePrice +
                 '}';

@@ -53,7 +53,7 @@ public class UserController {
 
     @PutMapping
     public void updateInfo(@RequestBody NewInfoRequest req, HttpServletRequest hReq) {
-        Principal principal = isLoggedIn(hReq);
+        Principal principal = tokenService.isLoggedIn(hReq);
         req.setId(principal.getId());
 
         boolean sameEmail = false;
@@ -86,16 +86,6 @@ public class UserController {
                         if (userService.cardAndDate(req))
                             userService.updateInfo(req);
 
-    }
-
-    private Principal isLoggedIn(HttpServletRequest req) {
-        String token = req.getHeader("authorization");
-        if (token == null || token.isEmpty()) throw new InvalidAuthException("Invalid Token");
-
-        Principal principal = tokenService.extractRequesterDetails(token);
-        if (principal == null) throw new InvalidAuthException("Please sign in to edit your information");
-
-        return principal;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

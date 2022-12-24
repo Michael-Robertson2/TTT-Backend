@@ -15,9 +15,6 @@ import org.springframework.data.jpa.repository.Query;
 @Transactional
 public interface ItemRepository extends CrudRepository<Item, String>{
 
-    @Query(value = "SELECT * from items WHERE id = ?1", nativeQuery = true)
-    Optional<Item> findById(String id);
-
     @Query(value = "SELECT * from items WHERE name = ?1", nativeQuery = true)
     List<Item> findAllByName(String name);
 
@@ -33,6 +30,10 @@ public interface ItemRepository extends CrudRepository<Item, String>{
     @Modifying
     @Query(value = "DELETE from items WHERE id = ?1", nativeQuery = true)
     void delete(String id);
+
+    @Modifying
+    @Query(value = "UPDATE Item SET stock = ?1 WHERE id= ?2")
+    void updateStock(int amount, String id);
 
 
 }

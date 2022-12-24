@@ -2,12 +2,14 @@ package com.revature.ecommerce.services;
 
 import com.revature.ecommerce.entities.enums.Role;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
+import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.utility_classes.JWTConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
@@ -56,5 +58,15 @@ public class TokenService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public Principal isLoggedIn(HttpServletRequest req) {
+        String token = req.getHeader("authorization");
+        if (token == null || token.isEmpty()) throw new InvalidAuthException("Invalid Token");
+
+        Principal principal = extractRequesterDetails(token);
+        if (principal == null) throw new InvalidAuthException("Please sign in to edit your information");
+
+        return principal;
     }
 }

@@ -1,45 +1,111 @@
 package com.revature.ecommerce.services;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+import com.revature.ecommerce.entities.Address;
+import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.Order;
+import com.revature.ecommerce.entities.User;
+import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
 import com.revature.ecommerce.entities.enums.Status;
 import com.revature.ecommerce.entities.dtos.requests.NewOrderRequest;
+import com.revature.ecommerce.entities.junctions.Cart;
+import com.revature.ecommerce.entities.junctions.OrdersAndItems;
+import com.revature.ecommerce.entities.keys.OrdersAndItemsKey;
+import com.revature.ecommerce.repositories.*;
+import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
+import com.revature.ecommerce.utils.custom_exceptions.InvalidOrderException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import com.revature.ecommerce.repositories.OrderRepository;
+
+import javax.transaction.Transactional;
 
 
 @Service
+@Transactional
 public class OrderService {
-    private final OrderRepository orderRepository;
+    private final OrderRepository orderRepo;
+    private final UserRepository userRepo;
+    private final AddressRepository addressRepo;
+    private final ItemRepository itemRepo;
+    private CartRepository cartRepo;
 
-
-
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(OrderRepository orderRepo, UserRepository userRepo, AddressRepository addressRepo, ItemRepository itemRepo, CartRepository cartRepo) {
+        this.orderRepo = orderRepo;
+        this.userRepo = userRepo;
+        this.addressRepo = addressRepo;
+        this.itemRepo = itemRepo;
+        this.cartRepo = cartRepo;
     }
 
     public void createOrder(NewOrderRequest req) {
 
-        Date date = new Date();
+        Date date = new Date(System.currentTimeMillis());
         Timestamp timestamp = new Timestamp(date.getTime());
 
+        Optional<Address> address = addressRepo.findById(req.getAddressId());
 
-        orderRepository.save(UUID.randomUUID().toString(), timestamp, null, Status.Placed, req.getUser_id(), req.getShipping_id());
+        Order createdOrder = new Order(UUID.randomUUID().toString(), timestamp, null, Status.Placed, new ArrayList<>(), req.getUser(), address.get());
+        List<Cart> cart = req.getUser().getCart();
+
+        String orderId = createdOrder.getId();
+        for (Cart c : cart) {
+            String itemId = c.getId().getItemId();
+            OrdersAndItemsKey key = new OrdersAndItemsKey(itemId, orderId);
+            int amount = c.getAmount();
+            Item item = c.getItem();
+            double price = amount * item.getCurrent_price();
+
+            createdOrder.getOrderItems().add(new OrdersAndItems(key, amount, price, item, createdOrder));
+
+            item.setStock(item.getStock() - amount);
+            itemRepo.updateStock(item.getStock(), itemId);
+        }
+        cartRepo.deleteByUserId(req.getUserId());
+        orderRepo.save(createdOrder);
     }
-
 
     public List<Order> getAllItems() {
-        return (List<Order>) orderRepository.findAll();
+        return (List<Order>) orderRepo.findAll();
     }
-
 
     public List<Order> getAllByStatus(Status status) {
-        return orderRepository.findAllByStatus(status);
+        return orderRepo.findAllByStatus(status);
     }
 
+    public boolean isValidAddress(NewOrderRequest req) {
+        Optional<Address> address = addressRepo.findById(req.getAddressId());
+        if (!address.isPresent())
+            throw new InvalidAddressException("Invalid Address Id");
 
+        Optional<User> user = userRepo.findById(req.getUserId());
+        if (!user.get().getAddresses().contains(address.get()))
+            throw new InvalidAddressException("Address is not associated with this account");
+        req.setUser(user.get());
+        return true;
+    }
+
+    public boolean cartNotEmpty(NewOrderRequest req) {
+        if(req.getUser().getCart().isEmpty())
+            throw new InvalidOrderException("Your cart is empty");
+        return true;
+    }
+
+    public boolean validPayment(NewOrderRequest req) {
+        if (req.getUser().getCardNumber() == null || req.getUser().getExpirationDate() == null || !isValidSecurityCode(req.getSecurityCode()))
+            throw new InvalidOrderException("Invalid Payment credentials");
+        return true;
+    }
+
+    private boolean isValidSecurityCode(String code) {
+        if (code == null)
+            return false;
+        if (code.length() != 3)
+            return false;
+        for (int i = 0; i < 3; i++)
+            if (!Character.isDigit(code.charAt(i)))
+                return false;
+        return true;
+    }
 }

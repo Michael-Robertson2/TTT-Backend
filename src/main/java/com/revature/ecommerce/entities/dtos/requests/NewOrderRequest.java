@@ -1,50 +1,52 @@
 package com.revature.ecommerce.entities.dtos.requests;
 
+import com.revature.ecommerce.entities.User;
 
 public class NewOrderRequest {
-    private String shipping_id;
-    private String user_id;
+
+    private String addressId;
+    private String userId;
+    private String securityCode;
+    private User user;
 
     public NewOrderRequest() {
         super();
     }
 
-    
-
-
-    public NewOrderRequest(String shipping_id, String user_id) {
-        this.shipping_id = shipping_id;
-        this.user_id = user_id;
+    public NewOrderRequest(String addressId, String securityCode) {
+        this.addressId = addressId;
+        this.securityCode = securityCode;
     }
 
-
-
-    public String getShipping_id() {
-        return shipping_id;
+    public String getAddressId() {
+        return addressId;
     }
 
-    public void setShipping_id(String shipping_id) {
-        this.shipping_id = shipping_id;
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
-    
-
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "NewOrderRequest [shipping_id=" + shipping_id + ", user_id=" + user_id + "]";
+    public String getSecurityCode() {
+        return securityCode;
     }
 
-    
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
+    }
 
-    
-    
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

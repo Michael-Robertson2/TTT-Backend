@@ -14,13 +14,13 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
 
 
 @Service
-public class AddressServices {
+public class AddressService {
     private final AddressRepository addressRepository;
 
 
     
 
-    public AddressServices(AddressRepository addressRepository) {
+    public AddressService(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 

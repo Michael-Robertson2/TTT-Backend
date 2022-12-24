@@ -2,10 +2,8 @@ package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.revature.ecommerce.entities.enums.Role;
-
+import com.revature.ecommerce.entities.junctions.Cart;
 import javax.persistence.*;
-
-import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
 
@@ -40,14 +38,28 @@ public class User {
 
     @OneToMany(
             cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user"
+    )
+    @JsonManagedReference(value="user-addresses")
+    private List<Address> addresses;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "user"
     )
-    @JsonManagedReference
-    private List<Address> addresses;
+    @JsonManagedReference(value="user-cart")
+    private List<Cart> cart;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user"
+    )
+    @JsonManagedReference(value="user-orders")
+    private List<Order> orders;
 
-    
     public User() {
         super();
     }
@@ -61,16 +73,20 @@ public class User {
         this.role = Role.User;
     }
 
-    public User(String id, String email, char[] password, String givenName, String surname, List<Address> addresses) {
+    public User(String id, String email, char[] password, String givenName, String surname, Role role, String cardNumber,
+                Date expirationDate, List<Address> addresses, List<Cart> cart, List<Order> orders) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.givenName = givenName;
         this.surname = surname;
+        this.role = role;
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
         this.addresses = addresses;
+        this.cart = cart;
+        this.orders = orders;
     }
-
-
 
     public String getId() {
         return id;
@@ -142,6 +158,22 @@ public class User {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<Cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
