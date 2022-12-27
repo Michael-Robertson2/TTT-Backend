@@ -51,7 +51,8 @@ public class CartService {
         List<CartPrincipal> list = new ArrayList<>();
         for (Cart c : cart) {
             Item item = c.getItem();
-            ItemPrincipal itemP = new ItemPrincipal(item.getId(), item.getDescription(), item.getMsrp(), item.getCurrent_price(), item.getImg_url(), item.getItemType());
+            ItemPrincipal itemP = new ItemPrincipal(item.getId(), item.getName(), item.getDescription(), item.getStock(), item.getMsrp(),
+                                                    item.getCurrent_price(), item.getImg_url(), item.getItemType());
             list.add(new CartPrincipal(itemP, c.getAmount()));
         }
         return list;

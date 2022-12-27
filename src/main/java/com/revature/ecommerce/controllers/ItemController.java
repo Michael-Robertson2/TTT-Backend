@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.ecommerce.entities.Item;
+import com.revature.ecommerce.entities.dtos.responses.ItemPrincipal;
 import com.revature.ecommerce.entities.enums.Role;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
@@ -27,14 +28,10 @@ public class ItemController {
     private final ItemService itemService;
     private final TokenService tokenService;
 
-    
-
-
     public ItemController(ItemService itemService, TokenService tokenService) {
         this.itemService = itemService;
         this.tokenService = tokenService;
     }
-
 
     @PostMapping
     public void createItem(@RequestBody NewItemRequest req, HttpServletRequest request) {
@@ -54,26 +51,20 @@ public class ItemController {
                                 itemService.createItem(req);
     }
 
-    
     @GetMapping("/all")
-    public List<Item> getAllItems() {
+    public List<ItemPrincipal> getAllItems() {
         return itemService.getAllItems();
     }
 
-
     @GetMapping("/id")
-        public Optional<Item> getItemById(String id){
+        public ItemPrincipal getItemById(@RequestParam String id){
         return itemService.getById(id);
     }
 
-
-
     @GetMapping("/name")
-    public List<Item> getAllItemsByName(String name){
+    public List<ItemPrincipal> getAllItemsByName(@RequestParam String name){
         return itemService.getAllByName(name);
     }
-
-
 
     @PutMapping("/update/id")
     public void updateAddress(@RequestBody NewItemRequest req, @RequestParam String id, HttpServletRequest request){
@@ -94,7 +85,6 @@ public class ItemController {
 
     }
 
-
     @DeleteMapping("/remove/id")
     public void removeItem(String id, HttpServletRequest request){
         String token = request.getHeader("authorization");
@@ -106,7 +96,6 @@ public class ItemController {
 
         itemService.deleteItem(id);
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidItemException.class)

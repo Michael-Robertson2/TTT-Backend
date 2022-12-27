@@ -1,11 +1,13 @@
 package com.revature.ecommerce.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
+import com.revature.ecommerce.entities.dtos.responses.ItemPrincipal;
 import org.springframework.stereotype.Service;
 import com.revature.ecommerce.repositories.ItemRepository;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
@@ -26,12 +28,9 @@ public class ItemService {
         itemRepository.save(createdItem);
     }
 
-
-
-    public List<Item> getAllItems() {
-        return (List<Item>) itemRepository.findAll();
+    public List<ItemPrincipal> getAllItems() {
+        return processItems((List<Item>) itemRepository.findAll());
     }
-
 
     public List<Item> getAllItemsByPriceAsc() {
         return (List<Item>) itemRepository.findAllByPriceAsc();
@@ -42,13 +41,19 @@ public class ItemService {
     }
 
 
-    public Optional<Item> getById(String id) {
-        return itemRepository.findById(id);
+    public ItemPrincipal getById(String id) {
+
+        Optional<Item> opt= itemRepository.findById(id);
+        if (!opt.isPresent())
+            return null;
+
+        Item item = opt.get();
+        return new ItemPrincipal(item.getId(), item.getName(), item.getDescription(), item.getStock(), item.getMsrp(), item.getCurrent_price(), item.getImg_url(), item.getItemType());
     }
 
 
-    public List<Item> getAllByName(String name) {
-        return itemRepository.findAllByName(name);
+    public List<ItemPrincipal> getAllByName(String name) {
+        return processItems(itemRepository.findAllByName(name));
     }
 
 
@@ -104,5 +109,13 @@ public class ItemService {
         if (req.getType() == null)
             throw new InvalidItemException("Type is required");
         return true;
+    }
+
+    private List<ItemPrincipal> processItems (List<Item> list) {
+        List<ItemPrincipal> items = new ArrayList<>();
+        for (Item i: list) {
+            items.add(new ItemPrincipal(i.getId(), i.getName(), i.getDescription(), i.getStock(), i.getMsrp(), i.getCurrent_price(), i.getImg_url(), i.getItemType()));
+        }
+        return items;
     }
 }

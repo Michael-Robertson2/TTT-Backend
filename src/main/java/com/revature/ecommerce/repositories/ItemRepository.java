@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 @Transactional
 public interface ItemRepository extends CrudRepository<Item, String>{
 
-    @Query(value = "SELECT * from items WHERE name = ?1", nativeQuery = true)
+    @Query(value = "SELECT * from items WHERE name LIKE %?1%", nativeQuery = true)
     List<Item> findAllByName(String name);
 
 
