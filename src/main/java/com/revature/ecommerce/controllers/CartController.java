@@ -1,6 +1,7 @@
 package com.revature.ecommerce.controllers;
 
 import com.revature.ecommerce.entities.dtos.requests.NewCartRequest;
+import com.revature.ecommerce.entities.dtos.responses.CartPrincipal;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.services.CartService;
 import com.revature.ecommerce.services.TokenService;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -46,6 +48,13 @@ public class CartController {
         if (cartService.isPresent(req))
             if (cartService.isValidItemAmount(req))
                 cartService.updateAmount(req);
+    }
+
+    @GetMapping
+    public List<CartPrincipal> getCart(HttpServletRequest req) {
+        Principal principal = tokenService.isLoggedIn(req);
+
+        return cartService.getCart(principal);
     }
 
     @DeleteMapping

@@ -8,6 +8,7 @@ import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.Order;
 import com.revature.ecommerce.entities.User;
 import com.revature.ecommerce.entities.dtos.requests.NewAddressRequest;
+import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.entities.enums.Status;
 import com.revature.ecommerce.entities.dtos.requests.NewOrderRequest;
 import com.revature.ecommerce.entities.junctions.Cart;
@@ -16,6 +17,7 @@ import com.revature.ecommerce.entities.keys.OrdersAndItemsKey;
 import com.revature.ecommerce.repositories.*;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidOrderException;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +68,10 @@ public class OrderService {
         orderRepo.save(createdOrder);
     }
 
+    public void cancelOrder(String id) {
+        orderRepo.setStatus(Status.Canceled.ordinal(), id);
+    }
+
     public List<Order> getAllItems() {
         return (List<Order>) orderRepo.findAll();
     }
@@ -95,6 +101,28 @@ public class OrderService {
     public boolean validPayment(NewOrderRequest req) {
         if (req.getUser().getCardNumber() == null || req.getUser().getExpirationDate() == null || !isValidSecurityCode(req.getSecurityCode()))
             throw new InvalidOrderException("Invalid Payment credentials");
+        return true;
+    }
+
+    public boolean isValidOrder(String id) {
+        Optional<Order> order = orderRepo.findById(id);
+        if (!order.isPresent())
+            throw new InvalidOrderException("Invalid Order ID");
+        return true;
+    }
+
+    public boolean orderUserMatch(String id, Principal principal) {
+        Optional<Order> order = orderRepo.findById(id);
+        if (!order.get().getUser().getId().equals(principal.getId()))
+            throw new InvalidOrderException("Order is not associated with this account");
+        return true;
+    }
+
+    public boolean isPending(String id) {
+        Optional<Order> order = orderRepo.findById(id);
+
+        if (!order.get().getStatus().equals(Status.Placed))
+            throw new InvalidOrderException("Order cannot be cancelled at this time.");
         return true;
     }
 

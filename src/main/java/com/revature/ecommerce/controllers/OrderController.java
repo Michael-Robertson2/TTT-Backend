@@ -36,6 +36,17 @@ public class OrderController {
                     orderService.createOrder(req);
     }
 
+    @PutMapping
+    public void cancelOrder(@RequestParam String orderId, HttpServletRequest req) {
+        Principal principal = tokenService.isLoggedIn(req);
+
+        if (orderService.isValidOrder(orderId))
+            if (orderService.orderUserMatch(orderId, principal))
+                if (orderService.isPending(orderId))
+                    orderService.cancelOrder(orderId);
+
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidAddressException.class)
     public InvalidAddressException handleAddressException (InvalidAddressException e) {

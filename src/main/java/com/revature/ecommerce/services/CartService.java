@@ -3,6 +3,9 @@ package com.revature.ecommerce.services;
 import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.User;
 import com.revature.ecommerce.entities.dtos.requests.NewCartRequest;
+import com.revature.ecommerce.entities.dtos.responses.CartPrincipal;
+import com.revature.ecommerce.entities.dtos.responses.ItemPrincipal;
+import com.revature.ecommerce.entities.dtos.responses.Principal;
 import com.revature.ecommerce.entities.junctions.Cart;
 import com.revature.ecommerce.entities.keys.CartKey;
 import com.revature.ecommerce.repositories.CartRepository;
@@ -12,6 +15,8 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +44,17 @@ public class CartService {
     public void updateAmount(NewCartRequest req) {
         CartKey key = new CartKey(req.getItemId(), req.getUserId());
         cartRepo.updateAmount(req.getAmount(), key);
+    }
+
+    public List<CartPrincipal> getCart(Principal principal) {
+        List<Cart> cart = cartRepo.findByUserId(principal.getId());
+        List<CartPrincipal> list = new ArrayList<>();
+        for (Cart c : cart) {
+            Item item = c.getItem();
+            ItemPrincipal itemP = new ItemPrincipal(item.getId(), item.getDescription(), item.getMsrp(), item.getCurrent_price(), item.getImg_url(), item.getItemType());
+            list.add(new CartPrincipal(itemP, c.getAmount()));
+        }
+        return list;
     }
 
     public void delete(NewCartRequest req) {
