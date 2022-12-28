@@ -1,0 +1,35 @@
+name: Deploy main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Overwrite file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: src/main/resources/application.yml
+          write-mode: overwrite
+          contents:
+            ${{ secrets.APPLICATION_YML }}
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Deploy to EB
+        uses: "einaregilsson/beanstalk-deploy@v20"
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: StarMax
+          environment_name: Starmax-env
+          version_label: 3
+          region: us-west-1
+          deployment_package: target/yolp-1.0-SNAPSHOT.jar
