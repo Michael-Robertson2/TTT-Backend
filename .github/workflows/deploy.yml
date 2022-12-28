@@ -37,6 +37,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: StarMax
           environment_name: Starmax-env
-          version_label: 4
+          version_label: 1-${{ github.sha }}
           region: us-west-1
           deployment_package: target/StarMax-1.0-SNAPSHOT.jar
