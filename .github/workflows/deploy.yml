@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: ENV
+    environment: env
     steps:
 
       - name: Checkout source code
