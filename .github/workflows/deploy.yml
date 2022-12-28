@@ -20,6 +20,13 @@ jobs:
           write-mode: overwrite
           contents: ${{ secrets.APPLICATION_YML }}
 
+      - name: Overwrite file two
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: src/main/resources/application.properties
+          write-mode: overwrite
+          contents: ${{ secrets.APPLICATION_PROPERTIES }}
+
       - name: Build with Maven
         run: mvn clean install
 
@@ -32,4 +39,4 @@ jobs:
           environment_name: Starmax-env
           version_label: 3
           region: us-west-1
-          deployment_package: target/yolp-1.0-SNAPSHOT.jar
+          deployment_package: target/StarMax-1.0-SNAPSHOT.jar
