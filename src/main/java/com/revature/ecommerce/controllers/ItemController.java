@@ -66,6 +66,12 @@ public class ItemController {
         return itemService.getAllByName(name);
     }
 
+    /*@GetMapping("/swapi")
+    public void callSwapi() {
+        String uri = "https://swapi.dev/api/";
+
+    }*/
+
     @PutMapping("/update/id")
     public void updateAddress(@RequestBody NewItemRequest req, @RequestParam String id, HttpServletRequest request){
         String token = request.getHeader("authorization");

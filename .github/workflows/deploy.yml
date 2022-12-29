@@ -23,7 +23,7 @@ jobs:
       - name: Overwrite file two
         uses: "DamianReeves/write-file-action@master"
         with:
-          path: src/main/resources/application.properties
+          path: src/main/java/com/revature/ecommerce/utils/application.properties
           write-mode: overwrite
           contents: ${{ secrets.APPLICATION_PROPERTIES }}
 
