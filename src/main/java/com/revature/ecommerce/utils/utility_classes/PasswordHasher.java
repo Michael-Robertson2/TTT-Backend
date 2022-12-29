@@ -38,7 +38,7 @@ public class PasswordHasher {
         Properties properties = new Properties();
 
         try {
-            properties.load(new FileReader("src/main/java/com/revature/ecommerce/utils/application.properties"));
+            properties.load(new FileReader("src/main/resources/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
