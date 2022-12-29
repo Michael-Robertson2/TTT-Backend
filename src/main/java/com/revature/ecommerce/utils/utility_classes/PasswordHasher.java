@@ -38,7 +38,7 @@ public class PasswordHasher {
         Properties properties = new Properties();
 
         try {
-            properties.load(new FileReader("src/main/resources/application.properties"));
+            properties.load(new FileReader("target/classes/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
