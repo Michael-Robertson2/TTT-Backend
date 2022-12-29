@@ -35,13 +35,15 @@ public class PasswordHasher {
     }
 
     private static byte[] getSalt() {
-        Properties properties = new Properties();
+        /*Properties properties = new Properties();
 
         try {
             properties.load(new FileReader("target/classes/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return DatatypeConverter.parseBase64Binary(properties.getProperty("saltTwo"));
+        return DatatypeConverter.parseBase64Binary(properties.getProperty("saltTwo"));*/
+        return DatatypeConverter.parseBase64Binary("webgiq245798y042h");
+
     }
 }
