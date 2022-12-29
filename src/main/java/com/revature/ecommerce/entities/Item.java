@@ -1,7 +1,7 @@
 package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.revature.ecommerce.entities.enums.ItemType;
+import com.revature.ecommerce.entities.dtos.enums.ItemType;
 import com.revature.ecommerce.entities.junctions.Cart;
 import com.revature.ecommerce.entities.junctions.OrdersAndItems;
 

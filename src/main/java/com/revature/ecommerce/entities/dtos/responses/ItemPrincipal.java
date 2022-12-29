@@ -1,6 +1,6 @@
 package com.revature.ecommerce.entities.dtos.responses;
 
-import com.revature.ecommerce.entities.enums.ItemType;
+import com.revature.ecommerce.entities.dtos.enums.ItemType;
 
 public class ItemPrincipal {
     private String id;

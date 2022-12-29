@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.revature.ecommerce.entities.Order;
-import com.revature.ecommerce.entities.enums.Status;
+import com.revature.ecommerce.entities.dtos.enums.Status;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

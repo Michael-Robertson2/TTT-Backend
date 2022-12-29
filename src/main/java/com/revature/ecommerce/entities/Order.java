@@ -2,7 +2,7 @@ package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.revature.ecommerce.entities.enums.Status;
+import com.revature.ecommerce.entities.dtos.enums.Status;
 import com.revature.ecommerce.entities.junctions.OrdersAndItems;
 
 import javax.persistence.*;

@@ -1,7 +1,7 @@
 package com.revature.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.revature.ecommerce.entities.enums.Role;
+import com.revature.ecommerce.entities.dtos.enums.Role;
 import com.revature.ecommerce.entities.junctions.Cart;
 import javax.persistence.*;
 import java.util.Date;

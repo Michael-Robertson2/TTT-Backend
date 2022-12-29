@@ -1,13 +1,11 @@
 package com.revature.ecommerce.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.dtos.responses.ItemPrincipal;
-import com.revature.ecommerce.entities.enums.Role;
+import com.revature.ecommerce.entities.dtos.enums.Role;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import com.revature.ecommerce.entities.dtos.responses.Principal;
 
