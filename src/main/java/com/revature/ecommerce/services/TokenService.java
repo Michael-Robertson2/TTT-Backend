@@ -8,7 +8,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

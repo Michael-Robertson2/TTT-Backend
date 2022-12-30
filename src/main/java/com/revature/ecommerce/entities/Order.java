@@ -18,14 +18,12 @@ public class Order {
     @Column(name = "purchase_date", nullable = false)
     private Timestamp purchaseDate;
 
-
     @Column(name = "delivery_date")
     private Timestamp deliveryDate;
 
     @Column(name="status", nullable = false)
     @Enumerated
     private Status status;
-
 
     @OneToMany(
             mappedBy = "order",
@@ -34,7 +32,6 @@ public class Order {
     )
     @JsonManagedReference(value="order-item-connection")
     private List<OrdersAndItems> orderItems;
-
 
     @ManyToOne
     @JoinColumn(
@@ -130,8 +127,6 @@ public class Order {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-
 
     @Override
     public String toString() {

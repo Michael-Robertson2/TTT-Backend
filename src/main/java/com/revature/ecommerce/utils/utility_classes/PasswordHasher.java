@@ -2,19 +2,15 @@ package com.revature.ecommerce.utils.utility_classes;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.xml.bind.DatatypeConverter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.SecureRandom;
 import java.security.spec.KeySpec;
-import java.util.Properties;
 
 @Component
 public class PasswordHasher {
+
     @Value("${saltTwo}")
     private String salt;
 
@@ -38,15 +34,6 @@ public class PasswordHasher {
     }
 
     private static byte[] getSalt() {
-        /*Properties properties = new Properties();
-
-        try {
-            properties.load(new FileReader("target/classes/application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return DatatypeConverter.parseBase64Binary(properties.getProperty("saltTwo"));*/
-        //return DatatypeConverter.parseBase64Binary("webgiq245798y042h");
         return DatatypeConverter.parseBase64Binary(staticSalt);
     }
 

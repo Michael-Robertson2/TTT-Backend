@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.dtos.requests.NewItemRequest;
 import com.revature.ecommerce.entities.dtos.responses.ItemPrincipal;
@@ -16,8 +15,6 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    
-    
 
     public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
@@ -40,7 +37,6 @@ public class ItemService {
         return (List<Item>) itemRepository.findAllByPriceDesc();
     }
 
-
     public ItemPrincipal getById(String id) {
 
         Optional<Item> opt= itemRepository.findById(id);
@@ -51,11 +47,9 @@ public class ItemService {
         return new ItemPrincipal(item.getId(), item.getName(), item.getDescription(), item.getStock(), item.getMsrp(), item.getCurrent_price(), item.getImg_url(), item.getItemType());
     }
 
-
     public List<ItemPrincipal> getAllByName(String name) {
         return processItems(itemRepository.findAllByName(name));
     }
-
 
     public void updateItem(NewItemRequest req, String id) {
         Item itemInDB = itemRepository.findById(id).get();
@@ -67,7 +61,6 @@ public class ItemService {
         itemInDB.setItemType(req.getType());
         itemRepository.save(itemInDB);
     }
-
 
     public void deleteItem(String id){
         itemRepository.delete(id);
@@ -103,7 +96,6 @@ public class ItemService {
             throw new InvalidItemException("Enter a valid price");
         return true;
     }
-
 
     public boolean isValidType(NewItemRequest req) {
         if (req.getType() == null)

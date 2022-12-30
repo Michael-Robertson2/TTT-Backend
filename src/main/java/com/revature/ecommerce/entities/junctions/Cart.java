@@ -7,9 +7,7 @@ import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.User;
 import com.revature.ecommerce.entities.keys.CartKey;
 
-
 // This is a junction table for users and items
-
 @Entity
 @Table(name = "carts")
 public class Cart {
@@ -29,7 +27,6 @@ public class Cart {
     @JsonBackReference(value="item-in-cart")
     private Item item;
 
-
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(
@@ -38,7 +35,6 @@ public class Cart {
     )
     @JsonBackReference(value="user-cart")
     private User user;
-
 
     public Cart() {
         super();
@@ -82,7 +78,6 @@ public class Cart {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
 
     @Override
     public String toString() {

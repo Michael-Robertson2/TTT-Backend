@@ -9,7 +9,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class OrdersAndItemsKey implements Serializable{
 
-
     @Column(name = "item_id")
     String itemId;
 

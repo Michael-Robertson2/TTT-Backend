@@ -1,10 +1,8 @@
 package com.revature.ecommerce.entities;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.List;
 
 @Entity
@@ -13,20 +11,17 @@ public class Address {
     @Id
     private String id;
 
-
     @Column(name = "street", nullable = false)
     private String street;
 
     @Column(name = "city")
     private String city;
 
-
     @Column(name = "state", nullable = false)
     private String state;
 
     @Column(name = "zipcode", nullable = false)
     private String zipcode;
-
 
     @ManyToOne
     @JoinColumn(
@@ -43,7 +38,6 @@ public class Address {
     )
     @JsonManagedReference(value = "address-orders")
     private List<Order> orders;
-
 
     public Address() {
         super();

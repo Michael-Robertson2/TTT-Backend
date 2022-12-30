@@ -1,7 +1,5 @@
 package com.revature.ecommerce.entities.dtos.responses;
 
-import com.revature.ecommerce.entities.Item;
-
 public class CartPrincipal {
 
     private ItemPrincipal item;

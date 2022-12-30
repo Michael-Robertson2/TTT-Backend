@@ -1,6 +1,5 @@
 package com.revature.ecommerce.services;
 
-
 import com.revature.ecommerce.entities.dtos.requests.NewInfoRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewLoginRequest;
 import com.revature.ecommerce.entities.dtos.requests.NewPasswordRequest;
@@ -11,7 +10,6 @@ import com.revature.ecommerce.repositories.UserRepository;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidUserException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

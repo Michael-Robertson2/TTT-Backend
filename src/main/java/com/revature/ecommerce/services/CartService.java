@@ -13,7 +13,6 @@ import com.revature.ecommerce.repositories.ItemRepository;
 import com.revature.ecommerce.repositories.UserRepository;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidItemException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;

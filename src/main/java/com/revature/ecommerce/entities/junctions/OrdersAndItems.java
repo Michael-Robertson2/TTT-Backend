@@ -8,7 +8,6 @@ import com.revature.ecommerce.entities.Order;
 import com.revature.ecommerce.entities.keys.OrdersAndItemsKey;
 
 // This is a junction table for items and orders
-
 @Entity
 @Table(name = "OrdersAndItems")
 public class OrdersAndItems {
@@ -41,7 +40,6 @@ public class OrdersAndItems {
     @JsonBackReference(value="order-item-connection")
     private Order order;
 
-
     public OrdersAndItems() {
         super();
     }
@@ -61,8 +59,6 @@ public class OrdersAndItems {
     public void setId(OrdersAndItemsKey id) {
         this.id = id;
     }
-
-
 
     public int getAmount() {
         return amount;

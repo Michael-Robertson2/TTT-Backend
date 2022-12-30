@@ -32,16 +32,12 @@ import com.revature.ecommerce.utils.custom_exceptions.InvalidAuthException;
 public class AddressController {
     private final AddressService addressService;
     private final TokenService tokenService;
-    
-    
-    
+
     public AddressController(AddressService addressService, TokenService tokenService) {
         this.addressService = addressService;
         this.tokenService = tokenService;
     }
-    
-    
-    
+
     @PostMapping
     public void createAddress(@RequestBody NewAddressRequest req, HttpServletRequest request) {
         String token = request.getHeader("authorization");
@@ -58,8 +54,7 @@ public class AddressController {
                     if (addressService.isValidZipcode(req))
                         addressService.createAddress(req);
     }
-    
-    
+
     @PutMapping("/update/id")
     public void updateAddress(@RequestBody NewAddressRequest req, @RequestParam String id, HttpServletRequest request){
         String token = request.getHeader("authorization");
@@ -75,9 +70,7 @@ public class AddressController {
                         addressService.updateAddress(req, id, principal.getId());
 
     }
-    
 
-    
     @GetMapping("/all/userId")
     public List<Address> getAllByUserId(HttpServletRequest request){
         String token = request.getHeader("authorization");
@@ -88,8 +81,6 @@ public class AddressController {
         String user_id = principal.getId();
         return addressService.getAllByUserId(user_id);
     }
-
-
 
     @DeleteMapping("/remove/id")
     public void deleteAddress(@RequestParam String id, HttpServletRequest request){
@@ -102,9 +93,6 @@ public class AddressController {
 
         addressService.deleteAddress(id, user_id);
     }
-
-    
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidAuthException.class)

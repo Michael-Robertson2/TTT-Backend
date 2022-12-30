@@ -18,10 +18,6 @@ public class Principal {
         super();
     }
 
-    
-
-    
-
     public Principal(String id, String email, String givenName, String surname, Role role, String cardNumber,
             Date expirationDate) {
         this.id = id;
@@ -32,10 +28,6 @@ public class Principal {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
     }
-
-
-
-
 
     public Principal(String id, String email, String givenName, String surname, Role role, String cardNumber,
             Date expirationDate, String token) {
@@ -49,17 +41,13 @@ public class Principal {
         this.token = token;
     }
 
-    
     public String getId() {
         return id;
     }
 
-
-
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getEmail() {
         return email;
@@ -117,17 +105,10 @@ public class Principal {
         this.token = token;
     }
 
-
-
     @Override
     public String toString() {
         return "Principal [id=" + id + ", email=" + email + ", givenName=" + givenName + ", surname=" + surname
                 + ", role=" + role + ", cardNumber=" + cardNumber + ", expirationDate=" + expirationDate + ", token="
                 + token + "]";
     }
-
-    
-
-
-
 }

@@ -2,7 +2,6 @@ package com.revature.ecommerce.services;
 
 import java.sql.Timestamp;
 import java.util.*;
-
 import com.revature.ecommerce.entities.Address;
 import com.revature.ecommerce.entities.Item;
 import com.revature.ecommerce.entities.Order;
@@ -17,9 +16,7 @@ import com.revature.ecommerce.repositories.*;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidAddressException;
 import com.revature.ecommerce.utils.custom_exceptions.InvalidOrderException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-
 
 @Service
 @Transactional
