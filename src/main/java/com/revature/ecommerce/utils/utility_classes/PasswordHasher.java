@@ -15,7 +15,10 @@ import java.util.Properties;
 
 @Component
 public class PasswordHasher {
+    @Value("${saltTwo}")
+    private String salt;
 
+    private static String staticSalt;
 
     public static char[] hash(String password) {
 
@@ -43,7 +46,12 @@ public class PasswordHasher {
             e.printStackTrace();
         }
         return DatatypeConverter.parseBase64Binary(properties.getProperty("saltTwo"));*/
-        return DatatypeConverter.parseBase64Binary("webgiq245798y042h");
+        //return DatatypeConverter.parseBase64Binary("webgiq245798y042h");
+        return DatatypeConverter.parseBase64Binary(staticSalt);
+    }
 
+    @Value("${saltTwo}")
+    public void setStaticSalt(String salt) {
+        PasswordHasher.staticSalt = salt;
     }
 }
