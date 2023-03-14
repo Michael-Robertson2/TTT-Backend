@@ -47,7 +47,7 @@
 - Push branch to remote repo
 - Create a Pull Request
 
-[Frontend README](https://github.com/221114-Java-React/TTT-Frontend/blob/main/README.md)
+[Frontend README](https://github.com/Michael-Robertson2/TTT-Frontend/blob/main/README.md)
 
 ## Development Setup
 
